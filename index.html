@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Nel's Maths">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#173a1f">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>Nel's Block Maths</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Lilita+One&display=swap" rel="stylesheet">
+<style>
+/* Layout: one-screen iPad app. Night-green frame + top bar, a cream "workbook page" stage, a strip of grass blocks underfoot. */
+:root{
+  --night:#173a1f; --leaf:#3d7a3d; --paper:#f6f1e1; --card:#fffdf6; --ink:#1d2b1f; --muted:#5b6b5c;
+  --gold:#f4c34b; --sky:#2f86b8; --clay:#e8893a; --plum:#7a55a0; --berry:#d9564a; --line:#dcd3b8;
+  --display:'Lilita One','Arial Rounded MT Bold',ui-rounded,sans-serif;
+  --body:'Andika','Comic Neue',ui-rounded,system-ui,sans-serif;
+  color-scheme:light;
+}
+html,body{height:100%}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:18px;
+  background:
+    linear-gradient(to top,#6b4526 0 12px,#5fa832 12px 20px,#7cc444 20px 26px,transparent 26px),
+    var(--night);
+  -webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;touch-action:manipulation;overflow:hidden}
+#app{height:100%;display:flex;flex-direction:column;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));box-sizing:border-box;padding-bottom:34px}
+button{font-family:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:4px solid var(--sky);outline-offset:3px}
+
+/* top bar */
+.bar{display:flex;align-items:center;gap:12px;padding-block:10px;color:var(--paper);min-height:56px}
+.bar h1{font:400 clamp(20px,3vw,28px)/1.1 var(--display);margin:0;flex:1;min-width:0;letter-spacing:.5px;text-wrap:balance}
+.bar h1 small{display:block;font:700 13px var(--body);letter-spacing:1.5px;text-transform:uppercase;color:var(--gold)}
+.icon-btn{width:52px;height:52px;border-radius:14px;border:0;background:rgba(255,255,255,.12);display:grid;place-items:center;flex:none}
+.icon-btn svg{width:28px;height:28px}
+.purse{display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.25);padding:6px 14px 6px 8px;border-radius:999px;font:400 24px var(--display);color:var(--gold)}
+.purse .cube{width:30px}
+
+/* stage */
+.stage{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;background:var(--paper);border-radius:22px;padding:clamp(14px,2.5vw,28px);box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:16px;-webkit-overflow-scrolling:touch}
+
+/* home */
+.home-head{width:100%;max-width:980px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px}
+.home-head h2{font:400 clamp(28px,4.5vw,44px)/1 var(--display);margin:0;color:var(--night)}
+.home-head p{margin:4px 0 0;color:var(--muted)}
+.chapter{width:100%;max-width:980px}
+.chapter h3{font:700 14px var(--body);letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin:8px 0 8px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.tile{display:flex;align-items:center;gap:12px;text-align:left;background:var(--card);border:3px solid var(--c,var(--leaf));border-radius:18px;padding:12px 14px;min-height:88px;box-shadow:0 4px 0 var(--c,var(--leaf))}
+.tile:active{transform:translateY(3px);box-shadow:0 1px 0 var(--c)}
+.tile .ic{flex:none;width:58px;display:grid;place-items:center}
+.tile .ic svg{width:100%}
+.tile b{font:400 21px/1.1 var(--display);display:block}
+.tile span{font-size:14px;color:var(--muted)}
+.tile .stars{display:flex;gap:3px;margin-top:4px}
+.tile .stars i{width:14px;height:14px;border-radius:3px;background:var(--line)}
+.tile .stars i.on{background:var(--gold)}
+.foot{width:100%;max-width:980px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-top:6px;padding-top:12px;border-top:2px dashed var(--line)}
+.toggles{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:2px solid var(--line);background:var(--card);border-radius:999px;padding:10px 16px;font-weight:700;font-size:16px}
+.chip[aria-pressed="true"]{background:var(--night);border-color:var(--night);color:var(--paper)}
+
+/* level picker */
+.levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;width:100%;max-width:900px}
+.lvl{border:0;border-radius:22px;padding:22px 20px;text-align:left;color:#fff;min-height:170px;display:flex;flex-direction:column;gap:6px;box-shadow:0 6px 0 rgba(0,0,0,.25)}
+.lvl:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.lvl small{font:700 14px var(--body);letter-spacing:1.8px;text-transform:uppercase;opacity:.9}
+.lvl b{font:400 32px/1 var(--display)}
+.lvl span{font-size:18px;line-height:1.35}
+.lvl.l1{background:var(--leaf)} .lvl.l2{background:var(--sky)} .lvl.l3{background:var(--clay)}
+.mission-intro{display:flex;align-items:center;gap:16px;max-width:900px;width:100%}
+.mission-intro .ic{width:90px;flex:none}
+.mission-intro h2{font:400 clamp(28px,4vw,40px)/1 var(--display);margin:0}
+.mission-intro p{margin:6px 0 0;color:var(--muted)}
+.tip{max-width:900px;width:100%;box-sizing:border-box;background:#e6f0da;border:2px solid #bcd3a7;border-radius:16px;padding:12px 16px;font-size:16px}
+
+/* play */
+.progress{display:flex;gap:6px;align-items:center}
+.progress .cube{width:34px;filter:grayscale(1) opacity(.35)}
+.progress .cube.done{filter:none}
+.progress .cube.now{filter:grayscale(1) opacity(.7);transform:translateY(-4px)}
+.prompt{display:flex;align-items:center;gap:12px;max-width:900px;justify-content:center}
+.prompt p{font:400 clamp(24px,3.6vw,36px)/1.15 var(--display);margin:0;text-align:center;text-wrap:balance;color:var(--night)}
+.speak{width:56px;height:56px;border-radius:50%;border:0;background:var(--sky);display:grid;place-items:center;flex:none;box-shadow:0 4px 0 #1f5f84}
+.speak svg{width:28px;height:28px}
+.scene{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%}
+.hint{font-size:15px;color:var(--muted);margin:-6px 0 0}
+.field,.row,.wall{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:10px 14px;max-width:720px}
+.wall{gap:6px;max-width:600px}
+.thing{position:relative;background:none;border:0;padding:4px;transform:rotate(var(--r,0deg)) translateY(var(--y,0px));line-height:0}
+.thing .cube{width:clamp(40px,6vw,56px)}
+.thing .ani{width:clamp(64px,10vw,96px)}
+.dense .thing .cube{width:clamp(30px,4.4vw,42px)}
+.dense .thing .ani{width:clamp(50px,7vw,70px)}
+.thing.counted::after{content:attr(data-n);position:absolute;top:-8px;right:-8px;background:var(--sky);color:#fff;font:400 20px/1 var(--display);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;box-shadow:0 2px 0 #1f5f84}
+.crumble{animation:fall .9s ease-in 1s forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(70px) rotate(28deg);opacity:.18}}
+.sum{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px}
+.grp{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;max-width:360px;padding:12px;border-radius:18px;background:var(--card);border:2px solid var(--line)}
+.op{font:400 54px var(--display);color:var(--leaf)}
+.sentence{font:400 clamp(30px,4.6vw,46px) var(--display);color:var(--ink);letter-spacing:2px;font-variant-numeric:tabular-nums}
+.slot{width:clamp(40px,6vw,56px);aspect-ratio:40/46;max-width:100%;border:3px dashed #9aa093;border-radius:8px;box-sizing:border-box;display:grid;place-items:center;font:400 28px var(--display);color:#9aa093}
+.trail{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.stone{width:clamp(64px,10vw,92px);aspect-ratio:1;border-radius:14px;display:grid;place-items:center;font:400 clamp(28px,4.4vw,42px) var(--display);color:#fff;background:#83878b;box-shadow:inset 0 -8px 0 #6c7074,inset 0 6px 0 #a3a7ab;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+.stone.q{background:var(--card);color:var(--sky);border:4px dashed var(--sky);box-shadow:none;text-shadow:none}
+.pattern{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
+.pattern .cube{width:clamp(44px,6.5vw,62px)}
+.pattern .slot{width:clamp(44px,6.5vw,62px)}
+.tower{display:flex;flex-direction:column-reverse;align-items:center;--w:clamp(40px,6vw,54px)}
+.tower .cube{width:var(--w)}
+.tower .cube:not(:last-child){margin-top:calc(var(--w) * -0.575)}
+.pens{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.penbox{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;max-width:260px;padding:14px;border:4px solid #8a5a32;border-radius:12px;background:#eef3e0}
+
+.choices{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.pick{min-width:96px;height:96px;padding:0 14px;border-radius:20px;border:4px solid var(--night);background:var(--card);font:400 48px var(--display);color:var(--night);box-shadow:0 6px 0 var(--night);display:grid;place-items:center}
+.pick .cube{width:58px}
+.pick:active{transform:translateY(4px);box-shadow:0 2px 0 var(--night)}
+.pick.wrong{opacity:.35;animation:shake .4s;pointer-events:none}
+.pick.right{background:var(--gold);border-color:#b98a10;box-shadow:0 6px 0 #b98a10}
+.pick.glow{animation:glow 1.2s ease-in-out infinite}
+@keyframes glow{50%{background:#fff3c4}}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.option{border:4px solid var(--line);background:var(--card);border-radius:22px;padding:16px;min-width:180px;min-height:160px;display:flex;align-items:flex-end;justify-content:center;box-shadow:0 6px 0 var(--line)}
+.option.wrong{opacity:.35;animation:shake .4s;pointer-events:none}
+.option.right{border-color:var(--gold);box-shadow:0 6px 0 #b98a10;background:#fff6d6}
+.option .row{max-width:300px}
+.option .cube{width:44px}.option .ani{width:66px}
+
+.build{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:center;width:100%}
+.target{font:400 clamp(70px,11vw,120px)/1 var(--display);color:var(--leaf);min-width:120px;text-align:center}
+.towers{display:flex;gap:14px;align-items:flex-end;min-height:120px;min-width:120px;justify-content:center;padding:10px 16px;border-bottom:6px solid #6b4526;background:none;border-top:0;border-left:0;border-right:0}
+.towers .empty{color:var(--muted);font-size:16px;padding-bottom:20px}
+.count-badge{font:400 28px var(--display);color:var(--sky);min-height:34px}
+.tools{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.btn{border:0;border-radius:18px;padding:16px 24px;font:400 26px var(--display);min-height:68px;display:inline-flex;align-items:center;gap:10px;box-shadow:0 5px 0 rgba(0,0,0,.25)}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.btn .cube{width:40px}
+.btn.add{background:#e6f0da;color:var(--night)}
+.btn.soft{background:var(--card);color:var(--night);border:3px solid var(--line);box-shadow:0 5px 0 var(--line)}
+.btn.go{background:var(--leaf);color:#fff}
+.btn.gold{background:var(--gold);color:var(--night)}
+.share{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:flex-end;width:100%}
+.pile{display:flex;flex-wrap:wrap;gap:4px;max-width:240px;justify-content:center;padding:12px;border-radius:18px;border:3px dashed var(--gold);min-height:60px;min-width:120px;align-items:center}
+.pile .cube{width:38px}
+.feeder{border:4px solid var(--line);background:var(--card);border-radius:22px;padding:12px;width:clamp(150px,22vw,210px);display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:0 6px 0 var(--line)}
+.feeder:active{transform:translateY(4px);box-shadow:0 2px 0 var(--line)}
+.feeder .ani{width:90px}
+.basket{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;min-height:36px}
+.basket .cube{width:28px}
+.feeder b{font:400 28px var(--display);color:var(--clay)}
+
+.fb{min-height:80px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.fb .yes{font:400 clamp(28px,4vw,40px) var(--display);color:var(--leaf)}
+.fb .soft{font-size:20px;color:var(--muted)}
+.pop{animation:popin .45s cubic-bezier(.3,1.6,.6,1)}
+@keyframes popin{from{transform:scale(.4);opacity:0}}
+
+/* finish */
+.done h2{font:400 clamp(36px,6vw,60px)/1 var(--display);margin:0;color:var(--night);text-align:center}
+.done p{text-align:center;margin:0;color:var(--muted);font-size:20px}
+.stash{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;max-width:360px}
+.stash .cube{width:48px;animation:popin .5s backwards}
+.routes{width:100%;max-width:760px;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px 16px;box-sizing:border-box}
+.routes h3{margin:0 0 10px;font:700 14px var(--body);letter-spacing:1.6px;text-transform:uppercase;color:var(--muted)}
+.routes .toggles .chip{font-size:15px}
+.r1[aria-pressed="true"]{background:var(--sky);border-color:var(--sky)}
+.r2[aria-pressed="true"]{background:var(--clay);border-color:var(--clay)}
+.r3[aria-pressed="true"]{background:var(--plum);border-color:var(--plum)}
+.r4[aria-pressed="true"]{background:var(--leaf);border-color:var(--leaf)}
+.r5[aria-pressed="true"]{background:var(--berry);border-color:var(--berry)}
+.r1,.r2,.r3,.r4,.r5{color:var(--ink)}
+[aria-pressed="true"].r1,[aria-pressed="true"].r2,[aria-pressed="true"].r3,[aria-pressed="true"].r4,[aria-pressed="true"].r5{color:#fff}
+
+/* notes */
+.notes{width:100%;max-width:820px;display:flex;flex-direction:column;gap:10px}
+.note{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:12px 16px;display:grid;gap:4px}
+.note .top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:700}
+.note .when{color:var(--muted);font-weight:400;font-size:15px;font-variant-numeric:tabular-nums}
+.note .tags{display:flex;gap:6px;flex-wrap:wrap}
+.note .tags span{font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:#e6f0da}
+.empty-note{color:var(--muted);text-align:center;padding:30px}
+.confirm{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important}
+  .crumble{animation:none;opacity:.18}
+}
+@media (max-width:520px){.pick{min-width:76px;height:80px;font-size:38px}.option{min-width:140px}}
+</style>
+<style>
+[hidden]{display:none!important} img{max-width:100%}
+#app{padding-top:env(safe-area-inset-top,0px);padding-bottom:calc(34px + env(safe-area-inset-bottom,0px))}
+</style>
+</head>
+<body>
+
+
+<div id="app">
+  <header class="bar">
+    <button class="icon-btn" data-act="home" aria-label="Home" id="homeBtn" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f6f1e1" stroke-width="2.4" stroke-linejoin="round"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>
+    </button>
+    <h1 id="title"><small>Made for Nel</small>Block Maths Adventures</h1>
+    <div class="purse" aria-label="Treasure blocks"><span id="purseCube"></span><b id="gold">0</b></div>
+  </header>
+  <main class="stage" id="stage" aria-live="polite"></main>
+</div>
+
+<script>
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const R=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function choicesFor(ans,min=0,max=30,n=3){const s=new Set([ans]);let t=0;while(s.size<n&&t<80){t++;const v=ans+pick([-2,-1,1,2,3,-3]);if(v>=min&&v<=max)s.add(v)}return shuffle([...s])}
+
+/* ---------- storage (per-device convenience) ---------- */
+const KEY='nelBlocks';
+let DB={gold:0,logs:[],best:{},voice:true,sound:true};
+try{Object.assign(DB,JSON.parse(localStorage.getItem(KEY))||{})}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){}};
+
+/* ---------- sound + voice ---------- */
+let ac;
+function tone(f,d,t=0,type='square',v=.05){if(!DB.sound)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain(),n=ac.currentTime+t;o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,n);g.gain.exponentialRampToValueAtTime(.0001,n+d);o.connect(g).connect(ac.destination);o.start(n);o.stop(n+d+.03)}catch(e){}}
+const sfx={yes(){tone(660,.12);tone(880,.12,.1);tone(1320,.22,.2)},no(){tone(196,.22,0,'triangle',.09)},pop(){tone(480+Math.random()*200,.07,0,'square',.035)},win(){[523,659,784,1047,1319].forEach((f,i)=>tone(f,.2,i*.12))}};
+function say(t){if(!DB.voice)return;try{const s=speechSynthesis;s.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=.88;u.pitch=1.05;const v=s.getVoices().find(v=>/en[-_]GB/i.test(v.lang));if(v)u.voice=v;s.speak(u)}catch(e){}}
+
+/* ---------- art: blocks + blocky farm animals (original drawings) ---------- */
+const BL={
+  grass:{t:'#7cc444',l:'#8a5a32',r:'#6e4626',band:['#5fa832','#4f8f28'],sp:'#5e3c1f'},
+  stone:{t:'#a5a9ad',l:'#878b8f',r:'#6f7377',sp:'#5d6165'},
+  wood:{t:'#c99a5b',l:'#7a5230',r:'#5f3f24',ring:true,sp:'#4c321c'},
+  gold:{t:'#ffde5c',l:'#f2b92b',r:'#d39a17',shine:true,sp:'#fff1a8'}
+};
+const NAME={grass:'grass',stone:'stone',wood:'wood',gold:'treasure'};
+function speck(face,u,v,c){const s=3;if(face==='l'){const y=x=>11.5+x*.5525;return`<polygon points="${u},${y(u)+v} ${u+s},${y(u+s)+v} ${u+s},${y(u+s)+v+s} ${u},${y(u)+v+s}" fill="${c}"/>`}
+  const y=x=>22-(x-20)*.5525;return`<polygon points="${u},${y(u)+v} ${u+s},${y(u+s)+v} ${u+s},${y(u+s)+v+s} ${u},${y(u)+v+s}" fill="${c}" opacity=".7"/>`}
+function cube(k,cls=''){const c=BL[k];let s=`<svg class="cube ${cls}" viewBox="0 0 40 46" aria-hidden="true"><polygon points="20,1 39,11.5 20,22 1,11.5" fill="${c.t}"/><polygon points="1,11.5 20,22 20,45 1,34.5" fill="${c.l}"/><polygon points="20,22 39,11.5 39,34.5 20,45" fill="${c.r}"/>`;
+  s+=speck('l',4,10,c.sp)+speck('l',12,4,c.sp)+speck('l',7,17,c.sp)+speck('r',25,8,c.sp)+speck('r',32,15,c.sp)+speck('r',28,1,c.sp);
+  if(c.band)s+=`<polygon points="1,11.5 20,22 20,28 1,17.5" fill="${c.band[0]}"/><polygon points="20,22 39,11.5 39,17.5 20,28" fill="${c.band[1]}"/><polygon points="10,9 13,7.5 16,9 13,10.5" fill="#9bd65f"/><polygon points="24,12 27,10.5 30,12 27,13.5" fill="#5fa832"/>`;
+  if(c.ring)s+=`<polygon points="20,5 31,11.5 20,18 9,11.5" fill="none" stroke="#8e6435" stroke-width="1.6"/><polygon points="20,8.5 25,11.5 20,14.5 15,11.5" fill="none" stroke="#8e6435" stroke-width="1.2"/>`;
+  if(c.shine)s+=`<polygon points="12,9 20,4.5 22,5.6 14,10" fill="#fff6c9"/><polygon points="5,19 8,20.7 8,26 5,24.3" fill="#ffe680"/>`;
+  return s+`<polyline points="1,11.5 20,22 39,11.5" fill="none" stroke="rgba(255,255,255,.28)"/></svg>`}
+function ani(k){const o={
+ pig:`<rect x="10" y="22" width="40" height="20" fill="#f2a5b0"/><rect x="12" y="40" width="7" height="12" fill="#e48c9a"/><rect x="22" y="40" width="7" height="12" fill="#e48c9a"/><rect x="34" y="40" width="7" height="12" fill="#e48c9a"/><rect x="44" y="40" width="6" height="12" fill="#e48c9a"/><rect x="5" y="22" width="5" height="5" fill="#e48c9a"/><rect x="40" y="10" width="22" height="22" fill="#f6b3bd"/><rect x="55" y="18" width="9" height="10" fill="#ec8f9e"/><rect x="57" y="21" width="2" height="3" fill="#8b3a4a"/><rect x="61" y="21" width="2" height="3" fill="#8b3a4a"/><rect x="47" y="14" width="5" height="5" fill="#fff"/><rect x="50" y="14" width="3" height="5" fill="#2b2b2b"/><rect x="40" y="8" width="6" height="5" fill="#e48c9a"/>`,
+ chicken:`<rect x="27" y="40" width="3" height="12" fill="#e89a2a"/><rect x="36" y="40" width="3" height="12" fill="#e89a2a"/><rect x="23" y="50" width="9" height="3" fill="#e89a2a"/><rect x="33" y="50" width="9" height="3" fill="#e89a2a"/><rect x="12" y="22" width="32" height="20" fill="#fbf8f0" stroke="#cfc8bc" stroke-width="1.2"/><rect x="16" y="26" width="16" height="10" fill="#e8e2d4"/><rect x="34" y="6" width="16" height="20" fill="#fbf8f0" stroke="#cfc8bc" stroke-width="1.2"/><rect x="50" y="12" width="9" height="6" fill="#f0a020"/><rect x="48" y="18" width="5" height="7" fill="#d9363e"/><rect x="38" y="1" width="8" height="5" fill="#d9363e"/><rect x="43" y="10" width="3" height="4" fill="#2b2b2b"/>`,
+ sheep:`<rect x="12" y="40" width="7" height="12" fill="#b88a62"/><rect x="22" y="40" width="7" height="12" fill="#b88a62"/><rect x="34" y="40" width="7" height="12" fill="#b88a62"/><rect x="43" y="40" width="7" height="12" fill="#b88a62"/><rect x="8" y="18" width="44" height="24" fill="#f1ede4" stroke="#cfc8bc" stroke-width="1.2"/><rect x="14" y="22" width="6" height="5" fill="#e2ddd1"/><rect x="30" y="30" width="6" height="5" fill="#e2ddd1"/><rect x="44" y="10" width="18" height="20" fill="#d9b18b"/><rect x="44" y="6" width="18" height="7" fill="#f1ede4" stroke="#cfc8bc" stroke-width="1.2"/><rect x="55" y="23" width="7" height="5" fill="#e9a0a6"/><rect x="51" y="15" width="4" height="4" fill="#2b2b2b"/><rect x="40" y="13" width="5" height="4" fill="#c4976e"/>`,
+ cow:`<rect x="12" y="40" width="7" height="12" fill="#3f2816"/><rect x="22" y="40" width="7" height="12" fill="#3f2816"/><rect x="34" y="40" width="7" height="12" fill="#3f2816"/><rect x="43" y="40" width="7" height="12" fill="#3f2816"/><rect x="8" y="18" width="44" height="24" fill="#6b4428"/><rect x="14" y="20" width="10" height="8" fill="#f1ede4"/><rect x="32" y="30" width="12" height="8" fill="#f1ede4"/><rect x="40" y="8" width="20" height="20" fill="#6b4428"/><rect x="48" y="20" width="14" height="9" fill="#e8b6a8"/><rect x="52" y="22" width="2" height="3" fill="#6b3a30"/><rect x="58" y="22" width="2" height="3" fill="#6b3a30"/><rect x="42" y="3" width="4" height="6" fill="#ddd6c6"/><rect x="54" y="3" width="4" height="6" fill="#ddd6c6"/><rect x="45" y="12" width="4" height="4" fill="#fff"/><rect x="48" y="12" width="2" height="4" fill="#1d1d1d"/>`};
+ return `<svg class="ani" viewBox="0 0 66 56" aria-hidden="true">${o[k]}</svg>`}
+const isBlock=k=>k in BL;
+const art=k=>isBlock(k)?cube(k):ani(k);
+const ANAMES={pig:['pig','pigs'],chicken:['chicken','chickens'],sheep:['sheep','sheep'],cow:['cow','cows'],grass:['grass block','grass blocks'],stone:['stone block','stone blocks'],wood:['wood block','wood blocks'],gold:['treasure block','treasure blocks']};
+const nm=(k,n)=>ANAMES[k][n===1?0:1];
+const many=(k,n)=>Array.from({length:n},()=>art(k));
+const things=(items,cls='field',extra='')=>`<div class="${cls} ${extra}">${items.map(h=>`<button class="thing" data-act="tally" style="--r:${cls==='field'?R(-6,6):0}deg;--y:${cls==='field'?R(-8,8):0}px">${h}</button>`).join('')}</div>`;
+const tower=(k,n)=>`<div class="tower">${many(k,n).join('')}</div>`;
+
+/* ---------- missions (from the workbook) ---------- */
+const CH={farm:['Counting on the farm','var(--leaf)'],village:['Adding to the village','var(--sky)'],mine:['Taking away at the mine','var(--clay)'],compare:['Bigger, smaller + equal','var(--plum)'],pattern:['Patterns + sharing','var(--berry)'],groups:['Groups + times','#8a5a32']};
+const M=[
+ {id:'count',ch:'farm',icon:'pig',title:'Count the animals',blurb:'Tap each one as you count',
+  lv:['Up to 5 animals','Up to 10 animals','Count only the pigs'],
+  gen(l){if(l<3){const k=pick(['pig','chicken','sheep','cow']),n=l===1?R(1,5):R(5,10);
+     return{t:'choice',say:`How many ${nm(k,2)}?`,scene:things(shuffle(many(k,n)),'field',n>7?'dense':'')+'<p class="hint">Tap each one as you count.</p>',answer:n,choices:choicesFor(n,1,12),yes:`Yes! ${n} ${nm(k,n)}.`}}
+   const n=R(3,8),m=R(2,4);return{t:'choice',say:'How many pigs? Only count the pigs!',scene:things(shuffle([...many('pig',n),...many('chicken',m)]),'field','dense')+'<p class="hint">Tap each pig as you count.</p>',answer:n,choices:choicesFor(n,1,12),yes:`Yes! ${n} pigs. The chickens don't count!`}}},
+ {id:'build',ch:'farm',icon:'grass',title:'Build the number',blurb:'Make a tower that tall',
+  lv:['Towers up to 5','Towers up to 10','Towers up to 15'],
+  gen(l){const n=l===1?R(2,5):l===2?R(5,10):R(11,15);return{t:'build',target:n,kind:pick(['grass','stone','wood']),h:0,show:l===1,say:`Build a tower with ${n} blocks.`}}},
+ {id:'moreless',ch:'farm',icon:'stone',title:'1 more, 1 less',blurb:'Add one or take one',
+  lv:['Find 1 more','1 more or 1 less','Bigger numbers'],
+  gen(l){const n=l===1?R(1,8):l===2?R(2,10):R(9,19),d=l===1?1:pick([1,-1]),a=n+d,w=d>0?'more':'less';
+   return{t:'choice',say:`Here are ${n} blocks. What is 1 ${w}?`,scene:things(many('grass',n),'wall',n>10?'dense':'')+`<div class="sentence">${n} ${d>0?'+':'−'} 1 = ?</div>`,answer:a,choices:choicesFor(a,0,21),yes:`Yes! 1 ${w} than ${n} is ${a}.`}}},
+ {id:'trail',ch:'farm',icon:'wood',title:'Number trail',blurb:'Find the missing stone',
+  lv:['Counting forwards','Counting backwards','Count in 2s, 5s, 10s'],
+  gen(l){let s,st;if(l===1){s=R(1,6);st=1}else if(l===2){s=R(7,12);st=-1}else{st=pick([2,5,10]);s=st}
+   const seq=Array.from({length:5},(_,i)=>s+i*st),g=R(1,4),a=seq[g];
+   const ch=st===1||st===-1?choicesFor(a,0,20):shuffle([a,a+st,a-st>0?a-st:a+2*st]);
+   const sayT=l===1?'Count along the path. Which number is missing?':l===2?'This path counts backwards. Which number is missing?':`Count in ${st}s. Which number is missing?`;
+   return{t:'choice',say:sayT,scene:`<div class="trail">${seq.map((v,i)=>i===g?'<div class="stone q">?</div>':`<div class="stone">${v}</div>`).join('')}</div>`,answer:a,choices:ch,yes:`Yes! ${seq.join(', ')}.`}}},
+ {id:'add',ch:'village',icon:'chicken',title:'Join the groups',blurb:'Push them together',
+  lv:['Totals up to 5','Totals up to 10','Totals up to 20'],
+  gen(l){let a,b;if(l===1){a=R(1,3);b=R(1,5-a)}else if(l===2){a=R(2,7);b=R(1,10-a)}else{a=R(6,12);b=R(3,8)}
+   const [ka,kb]=l===3?shuffle(['grass','stone','wood']):shuffle(['pig','chicken','sheep','cow','grass','stone']).slice(0,2),dense=l===3?'dense':'';
+   return{t:'choice',say:`${a} ${nm(ka,a)} and ${b} ${nm(kb,b)}. How many altogether?`,scene:`<div class="sum ${dense}"><div class="grp">${things(many(ka,a),'row')}</div><span class="op">+</span><div class="grp">${things(many(kb,b),'row')}</div></div><div class="sentence">${a} + ${b} = ?</div>`,answer:a+b,choices:choicesFor(a+b,1,25),yes:`Yes! ${a} + ${b} = ${a+b}.`}}},
+ {id:'bonds',ch:'village',icon:'stone',title:"Repair Mummy's wall",blurb:'How many blocks are missing?',
+  lv:['Wall of 5','Wall of 10','Walls of 6, 8 or 12'],
+  gen(l){const T=l===1?5:l===2?10:pick([6,8,12]),a=R(1,T-1),m=T-a;
+   return{t:'choice',say:`Mummy's wall needs ${T} blocks. She has ${a}. How many are missing?`,scene:`<div class="wall">${many('stone',a).map(h=>`<span class="thing">${h}</span>`).join('')}${'<div class="slot"></div>'.repeat(m)}</div><div class="sentence">${a} + ? = ${T}</div>`,answer:m,choices:choicesFor(m,1,12),yes:`Yes! ${a} + ${m} = ${T}. The wall is fixed!`}}},
+ {id:'take',ch:'mine',icon:'stone',title:'The broken wall',blurb:'Some blocks fall off',
+  lv:['Up to 5 blocks','Up to 10 blocks','Up to 15 blocks'],
+  gen(l){let n,k;if(l===1){n=R(3,5);k=R(1,2)}else if(l===2){n=R(5,10);k=R(2,5)}else{n=R(10,15);k=R(3,7)}
+   const items=many('stone',n).map((h,i)=>i>=n-k?`<span class="thing crumble">${h}</span>`:`<button class="thing" data-act="tally">${h}</button>`).join('');
+   return{t:'choice',say:`There are ${n} blocks. ${k} fall off the wall. How many are left?`,scene:`<div class="wall ${n>10?'dense':''}">${items}</div><div class="sentence">${n} − ${k} = ?</div>`,answer:n-k,choices:choicesFor(n-k,0,15),yes:`Yes! ${n} take away ${k} leaves ${n-k}.`}}},
+ {id:'compare',ch:'compare',icon:'wood',title:'Which is more?',blurb:'Taller, more or fewer',
+  lv:['Taller tower','Which group has more?','More or fewer?'],
+  gen(l){if(l===1){const a=R(1,4),b=a+R(3,5),[x,y]=shuffle([a,b]),k=shuffle(['grass','stone','wood']);
+     return{t:'pick',say:'Tap the taller tower.',opts:[{h:tower(k[0],x),ok:x>y},{h:tower(k[1],y),ok:y>x}],yes:`Yes! ${Math.max(x,y)} blocks is taller than ${Math.min(x,y)}.`}}
+   const fewer=l===3&&Math.random()<.5,a=R(3,l===3?9:8),b=a+(l===3?1:pick([1,2])),[x,y]=shuffle([a,b]),[k1,k2]=shuffle(['pig','chicken','sheep','cow']);
+   const ok1=fewer?x<y:x>y;
+   return{t:'pick',say:fewer?`Which group has fewer? Tap it.`:`Are there more ${nm(k1,2)} or ${nm(k2,2)}? Tap the group with more.`,
+     opts:[{h:`<div class="row">${many(k1,x).join('')}</div>`,ok:ok1},{h:`<div class="row">${many(k2,y).join('')}</div>`,ok:!ok1}],
+     yes:fewer?`Yes! ${Math.min(x,y)} is fewer than ${Math.max(x,y)}.`:`Yes! ${Math.max(x,y)} is more than ${Math.min(x,y)}.`}}},
+ {id:'pattern',ch:'pattern',icon:'gold',title:'What comes next?',blurb:'Finish the block pattern',
+  lv:['AB AB…','AABB…','AAABBB… or ABC…'],
+  gen(l){const ks=shuffle(['grass','stone','wood','gold']);let u;
+   if(l===1)u=[ks[0],ks[1]];else if(l===2)u=[ks[0],ks[0],ks[1],ks[1]];else u=pick([[ks[0],ks[0],ks[0],ks[1],ks[1],ks[1]],[ks[0],ks[1],ks[2]]]);
+   const len={2:R(4,6),3:R(5,7),4:R(5,7),6:R(7,9)}[u.length],seq=Array.from({length:len},(_,i)=>u[i%u.length]),a=u[len%u.length];
+   const opts=new Set(u);for(const k of ks){if(opts.size>=3)break;opts.add(k)}
+   return{t:'choice',say:'What block comes next?',scene:`<div class="pattern">${seq.map(k=>cube(k)).join('')}<div class="slot">?</div></div>`,answer:a,choices:shuffle([...opts].slice(0,3)),fmt:k=>cube(k),yes:`Yes! ${NAME[a]} comes next.`}}},
+ {id:'share',ch:'pattern',icon:'sheep',title:'Share fairly',blurb:'Everyone gets the same',
+  lv:['Share 4 or 6','Share 8 to 12','3 animals, leftovers'],
+  gen(l){let n,m;if(l===1){n=pick([4,6]);m=2}else if(l===2){n=pick([8,10,12]);m=2}else[n,m]=pick([[9,3],[12,3],[7,2],[11,2],[10,3]]);
+   return{t:'share',n,left:n,ks:shuffle(['pig','sheep','cow','chicken']).slice(0,m),got:Array(m).fill(0),say:`Share ${n} treasure blocks fairly. Tap an animal to give it one.`}}},
+ {id:'groups',ch:'groups',icon:'cow',title:'Equal groups',blurb:'Pens with the same in each',
+  lv:['Groups of 2','Groups of 5 or 10','Bigger groups'],
+  gen(l){let g,k,kind;if(l===1){g=R(2,3);k=2;kind=pick(['pig','sheep','chicken'])}else if(l===2){k=pick([5,10]);g=k===10?2:R(2,3);kind=pick(['grass','stone'])}else{g=R(2,4);k=R(3,5);kind=pick(['wood','gold','stone'])}
+   const T=g*k;
+   return{t:'choice',say:`There are ${g} pens with ${k} in each. How many altogether?`,scene:`<div class="pens ${isBlock(kind)?'dense':''}">${Array.from({length:g},()=>`<div class="penbox">${things(many(kind,k),'row')}</div>`).join('')}</div>${l===2?`<p class="hint">Try counting in ${k}s.</p>`:''}`,answer:T,choices:choicesFor(T,2,45),yes:`Yes! ${g} groups of ${k} make ${T}. ${Array(g).fill(k).join(' + ')} = ${T}`}}}
+];
+const LV=[['Explore','Give it a go','l1'],['Build','Main mission','l2'],['Power up','Extra challenge','l3']];
+const ROUTES=['Watch Mummy','Built together','Changed it','Needed help','Not finished'];
+
+/* ---------- state + screens ---------- */
+let S=null;
+const stage=()=>$('#stage');
+function setBar(main,small){$('#title').innerHTML=`<small>${small}</small>${main}`;$('#gold').textContent=DB.gold;$('#homeBtn').hidden=!S&&main==='Block Maths Adventures'}
+function speakerBtn(){return`<button class="speak" data-act="speak" aria-label="Say it again"><svg viewBox="0 0 24 24" fill="#fff"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button>`}
+
+function showHome(){S=null;setBar('Block Maths Adventures','Made for Nel');$('#homeBtn').hidden=true;
+ const by={};M.forEach(m=>(by[m.ch]=by[m.ch]||[]).push(m));
+ stage().innerHTML=`<div class="home-head"><div><h2>Pick a mission, Nel!</h2><p>Every way of playing counts. A few fun minutes is plenty.</p></div></div>
+ ${Object.entries(by).map(([c,ms])=>`<section class="chapter"><h3>${CH[c][0]}</h3><div class="tiles">${ms.map(m=>{const b=DB.best[m.id]||0;
+   return`<button class="tile" style="--c:${CH[c][1]}" data-act="mission" data-id="${m.id}"><span class="ic">${art(m.icon)}</span><span><b>${m.title}</b><span>${m.blurb}</span><span class="stars">${[1,2,3].map(i=>`<i class="${b>=i?'on':''}"></i>`).join('')}</span></span></button>`}).join('')}</div></section>`).join('')}
+ <div class="foot"><div class="toggles"><button class="chip" data-act="voice" aria-pressed="${DB.voice}">Read aloud</button><button class="chip" data-act="sound" aria-pressed="${DB.sound}">Sounds</button></div><button class="chip" data-act="notes">For Niamh: notes</button></div>`;
+ stage().scrollTop=0}
+
+function showLevels(id){const m=M.find(x=>x.id===id);S=null;setBar(m.title,CH[m.ch][0]);$('#homeBtn').hidden=false;
+ stage().innerHTML=`<div class="mission-intro"><span class="ic">${art(m.icon)}</span><div><h2>${m.title}</h2><p>${m.blurb}. Choose how tricky.</p></div></div>
+ <div class="levels">${LV.map((v,i)=>`<button class="lvl ${v[2]}" data-act="start" data-id="${id}" data-l="${i+1}"><small>${v[0]}</small><b>${v[1]}</b><span>${m.lv[i]}</span></button>`).join('')}</div>
+ <p class="tip"><b>Niamh:</b> offer one short instruction, then wait. Nel can play, watch you play, or change the rules.</p>`;
+ say(`${m.title}. Pick explore, build, or power up.`)}
+
+function start(id,l){const m=M.find(x=>x.id===id);S={m,l,i:0,total:5,first:0,miss:0,round:null,locked:false};setBar(m.title,`${LV[l-1][0]} · ${m.lv[l-1]}`);$('#homeBtn').hidden=false;next()}
+function next(){if(S.i>=S.total)return finish();S.round=S.m.gen(S.l);S.miss=0;S.locked=false;render();say(S.round.say)}
+function progress(){return`<div class="progress" aria-label="Round ${S.i+1} of ${S.total}">${Array.from({length:S.total},(_,i)=>cube('gold',i<S.i?'done':i===S.i?'now':'')).join('')}</div>`}
+
+function render(){const r=S.round;let body='';
+ if(r.t==='choice')body=`<div class="scene">${r.scene}</div><div class="choices">${r.choices.map(c=>`<button class="pick" data-act="answer" data-v="${c}" aria-label="${r.fmt?NAME[c]:c}">${r.fmt?r.fmt(c):c}</button>`).join('')}</div>`;
+ if(r.t==='pick')body=`<div class="choices">${r.opts.map((o,i)=>`<button class="option" data-act="opt" data-i="${i}">${o.h}</button>`).join('')}</div>`;
+ if(r.t==='build')body=buildHTML(r);
+ if(r.t==='share')body=shareHTML(r);
+ stage().innerHTML=`${progress()}<div class="prompt">${speakerBtn()}<p>${r.say}</p></div>${body}<div class="fb" id="fb"></div>`;
+ stage().scrollTop=0}
+
+function buildHTML(r){return`<div class="build"><div class="target" aria-label="Target">${r.target}</div><div><div class="towers" id="towers">${towersInner(r)}</div><div class="count-badge" id="cnt">${r.show&&r.h?r.h+' blocks':''}</div></div></div>
+ <div class="tools"><button class="btn add" data-act="addblock">${cube(r.kind)}Add a block</button><button class="btn soft" data-act="remblock">Take one off</button><button class="btn go" data-act="checkbuild">Done!</button></div>`}
+function towersInner(r){if(!r.h)return'<span class="empty">Tap “Add a block”</span>';let out='',h=r.h;while(h>0){const c=Math.min(10,h);out+=tower(r.kind,c);h-=c}return out}
+function shareHTML(r){return`<div class="share">${r.ks.map((k,i)=>`<button class="feeder" data-act="give" data-i="${i}" aria-label="Give the ${k} one">${ani(k)}<div class="basket">${many('gold',r.got[i]).join('')}</div><b>${r.got[i]}</b></button>`).join('')}</div>
+ <div class="pile" aria-label="${r.left} treasure blocks to share">${r.left?many('gold',r.left).join(''):'<span class="hint">All given out</span>'}</div>
+ <div class="tools"><button class="btn soft" data-act="resetshare">Start again</button></div>`}
+
+/* ---------- answers ---------- */
+function correct(text){S.locked=true;if(!S.miss)S.first++;S.i++;DB.gold++;save();$('#gold').textContent=DB.gold;sfx.yes();say(text);
+ const p=document.querySelector('.progress');if(p)p.outerHTML=progress();
+ $('#fb').innerHTML=`<div class="yes pop">${text}</div><button class="btn gold pop" data-act="next">${S.i>=S.total?'Finish!':'Next'} ${cube('gold')}</button>`}
+function wrong(msg){S.miss++;sfx.no();$('#fb').innerHTML=`<div class="soft pop">${msg||'Not quite. Have another go!'}</div>`;if(msg)say(msg)}
+
+const H={
+ home(){if(S&&S.i>0&&S.i<S.total)logIt(['Not finished']);showHome()},
+ mission(b){showLevels(b.dataset.id)},
+ start(b){start(b.dataset.id,+b.dataset.l)},
+ speak(){say(S?S.round.say:'')},
+ voice(b){DB.voice=!DB.voice;save();b.setAttribute('aria-pressed',DB.voice);if(DB.voice)say('I will read the missions out loud.');else try{speechSynthesis.cancel()}catch(e){}},
+ sound(b){DB.sound=!DB.sound;save();b.setAttribute('aria-pressed',DB.sound);sfx.pop()},
+ tally(b){if(b.classList.contains('counted'))return;const n=document.querySelectorAll('.thing.counted').length+1;b.dataset.n=n;b.classList.add('counted');sfx.pop();if(n<=20)say(String(n))},
+ answer(b){if(S.locked)return;const r=S.round;if(String(b.dataset.v)===String(r.answer)){b.classList.add('right');correct(r.yes)}else{b.classList.add('wrong');wrong();if(S.miss>=2)document.querySelector(`.pick[data-v="${r.answer}"]`)?.classList.add('glow')}},
+ opt(b){if(S.locked)return;const r=S.round,o=r.opts[+b.dataset.i];if(o.ok){b.classList.add('right');correct(r.yes)}else{b.classList.add('wrong');wrong('Look again. Count them if it helps!')}},
+ addblock(){const r=S.round;if(S.locked||r.h>=20)return;r.h++;sfx.pop();upd()},
+ remblock(){const r=S.round;if(S.locked||!r.h)return;r.h--;tone(300,.06,0,'square',.03);upd()},
+ checkbuild(){const r=S.round;if(S.locked)return;if(r.h===r.target)return correct(`Yes! Your tower has ${r.target} blocks.`);
+   wrong(r.h<r.target?`Your tower has ${r.h}. We need ${r.target}. Add some more!`:`Your tower has ${r.h}. That's too many. Take some off!`)},
+ give(b){const r=S.round;if(S.locked||!r.left)return;r.got[+b.dataset.i]++;r.left--;sfx.pop();rerenderShare();checkShare()},
+ resetshare(){const r=S.round;if(S.locked)return;r.left=r.n;r.got=r.got.map(()=>0);rerenderShare();$('#fb').innerHTML=''},
+ next(){next()},
+ again(){start(S.m.id,S.l)},
+ up(){start(S.m.id,S.l+1)},
+ route(b){const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);const L=DB.logs[0];if(L){const v=b.dataset.v;L.routes=on?[...new Set([...L.routes,v])]:L.routes.filter(x=>x!==v);save()}},
+ notes(){showNotes()},
+ clear(b){b.parentElement.innerHTML=`<span>Delete all notes on this iPad?</span><button class="chip" data-act="clearyes">Yes, delete</button><button class="chip" data-act="notes">Keep them</button>`},
+ clearyes(){DB.logs=[];save();showNotes()}
+};
+function upd(){const r=S.round;$('#towers').innerHTML=towersInner(r);$('#cnt').textContent=r.show&&r.h?r.h+(r.h===1?' block':' blocks'):'';$('#fb').innerHTML=''}
+function rerenderShare(){const r=S.round,wrap=stage();const sh=wrap.querySelector('.share'),pile=wrap.querySelector('.pile'),tools=wrap.querySelector('.tools');const tmp=document.createElement('div');tmp.innerHTML=shareHTML(r);sh.replaceWith(tmp.children[0]);pile.replaceWith(tmp.children[0]);tools.replaceWith(tmp.children[0])}
+function checkShare(){const r=S.round,m=r.got.length,eq=r.got.every(g=>g===r.got[0]);
+ if(eq&&r.left<m){const each=r.got[0];return correct(`Fair! ${r.n} shared by ${m} is ${each} each${r.left?`, with ${r.left} left over`:''}.`)}
+ if(!eq&&r.left<m)wrong('Hmm, is that fair? Someone has more. Tap Start again.')}
+
+/* ---------- finish + notes ---------- */
+function logIt(routes){DB.logs.unshift({d:Date.now(),m:S.m.id,l:S.l,done:S.i,of:S.total,first:S.first,routes});DB.logs=DB.logs.slice(0,200);save()}
+function finish(){const m=S.m;DB.best[m.id]=Math.max(DB.best[m.id]||0,S.l);logIt([]);save();sfx.win();
+ say(`Mission complete! Brilliant building, Nel!`);
+ stage().innerHTML=`<div class="done" style="display:flex;flex-direction:column;align-items:center;gap:14px;width:100%">
+  <h2>Mission complete!</h2><p>${m.title} · ${LV[S.l-1][0]} · ${S.total} treasure blocks won</p>
+  <div class="stash">${Array.from({length:S.total},(_,i)=>cube('gold').replace('class="cube "',`class="cube" style="animation-delay:${i*.12}s"`)).join('')}</div>
+  <div class="tools"><button class="btn go" data-act="again">Play again</button>${S.l<3?`<button class="btn gold" data-act="up">Try ${LV[S.l][0]}</button>`:''}<button class="btn soft" data-act="home">Other missions</button></div>
+  <div class="routes"><h3>For Niamh · optional · how did Nel join in?</h3><div class="toggles">${ROUTES.slice(0,4).map((r,i)=>`<button class="chip r${i+1}" data-act="route" data-v="${r}" aria-pressed="false">${r}</button>`).join('')}</div></div></div>`;
+ S.i=S.total}
+function showNotes(){S=null;setBar('Notes for Niamh','These notes are about the activity, not Nel');$('#homeBtn').hidden=false;
+ const name=id=>(M.find(m=>m.id===id)||{}).title||id,fmt=d=>new Date(d).toLocaleString('en-GB',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+ const fav={};DB.logs.forEach(L=>fav[L.m]=(fav[L.m]||0)+1);const top=Object.entries(fav).sort((a,b)=>b[1]-a[1])[0];
+ stage().innerHTML=`<div class="notes"><p class="tip"><b>Saved on this iPad only.</b> ${DB.logs.length?`${DB.logs.length} sessions so far. Most played: <b>${name(top[0])}</b>. Repeating a favourite counts too.`:'Notes appear here after each mission.'}</p>
+ ${DB.logs.length?DB.logs.map(L=>`<div class="note"><div class="top"><span>${name(L.m)} · ${LV[L.l-1][0]}</span><span class="when">${fmt(L.d)}</span></div><div>${L.done} of ${L.of} rounds · ${L.first} right first try</div>${L.routes.length?`<div class="tags">${L.routes.map(r=>`<span>${r}</span>`).join('')}</div>`:''}</div>`).join(''):'<div class="empty-note">No missions played yet.</div>'}
+ ${DB.logs.length?'<div class="confirm"><button class="chip" data-act="clear">Clear all notes</button></div>':''}</div>`}
+
+document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;const f=H[b.dataset.act];if(f)f(b,e)});
+$('#purseCube').innerHTML=cube('gold');
+try{speechSynthesis.getVoices()}catch(e){}
+showHome();
+</script>
+
+<script>
+if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
+</script>
+</body>
+</html>
