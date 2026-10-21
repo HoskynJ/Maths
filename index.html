@@ -266,6 +266,82 @@ button:focus-visible{outline:4px solid var(--sky);outline-offset:3px}
 .tipsbox{background:#e6f0da;border:2px solid #bcd3a7;border-radius:18px;padding:14px 16px}
 .tipsbox ul{margin:8px 0 0;padding-left:20px;display:grid;gap:6px;font-size:16px;line-height:1.4}
 body.calm .pick.wrong,body.calm .option.wrong{animation:none}
+/* celebrations + village */
+.confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:80}
+.flyer{position:fixed;left:0;top:0;z-index:75;pointer-events:none;width:40px}
+.flyer .cube{width:40px}
+.party h2{font-size:clamp(40px,7vw,68px)}
+.bounce{animation:bnc 1s cubic-bezier(.3,1.6,.6,1) 2}
+@keyframes bnc{30%{transform:scale(1.08) translateY(-10px)}60%{transform:scale(.97)}}
+.buddy.dance{width:90px;animation:dance .7s ease-in-out infinite alternate}
+@keyframes dance{from{transform:rotate(-10deg) translateY(0)}to{transform:rotate(10deg) translateY(-14px)}}
+.village{width:100%;max-width:1040px;background:linear-gradient(#bfe3f5,#e9f4fa 75%);border:3px solid var(--line);border-radius:22px;padding:22px 16px 0;box-sizing:border-box;overflow:hidden}
+.vrow{display:flex;flex-wrap:wrap;gap:18px 22px;align-items:flex-end;justify-content:center;padding-bottom:6px}
+.vgrass{height:18px;margin:0 -16px;background:linear-gradient(#7cc444 0 40%,#6b4526 40%)}
+.vb{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:4px;padding:0;font-family:var(--body)}
+.vb svg{width:clamp(100px,15vw,150px);display:block}
+.vb span{font:700 13px var(--body);color:var(--night);text-align:center;max-width:160px}
+.vnew{animation:drop .8s cubic-bezier(.3,1.5,.6,1) backwards}
+.wip svg{filter:saturate(.9)}
+.wip span{color:var(--muted)}
+.choosegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;width:100%;max-width:980px}
+.vchoice{background:linear-gradient(#cfe8f5,#eef6fa);border:3px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:0 5px 0 var(--line)}
+.vchoice:active{transform:translateY(3px)}
+.vchoice svg{width:120px}
+.vchoice b{font:400 22px var(--display);color:var(--night)}
+.vchoice span{font-size:14px;color:var(--muted)}
+.vchoice.on{border-color:var(--gold);box-shadow:0 5px 0 #b98a10}
+/* drawing room */
+.studio{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start;justify-content:center;width:100%;max-width:1040px}
+.sgrid{flex:0 1 auto;min-width:0;max-width:100%}
+.pxgrid{display:grid;grid-template-columns:repeat(var(--gw),1fr);width:min(560px,88vw,calc(100vh - 230px));max-width:100%;border:4px solid var(--night);border-radius:8px;overflow:hidden;touch-action:none;background:#fff;box-sizing:border-box}
+.px{box-shadow:inset -1px -1px 0 rgba(0,0,0,.09);display:grid;place-items:center;font:700 clamp(10px,1.6vw,16px)/1 var(--body);color:#4a5560;min-width:0;overflow:hidden;white-space:nowrap}
+.px.lab{background:#fff}
+.sside{display:flex;flex-direction:column;gap:12px;align-items:flex-start;flex:1 1 220px;max-width:340px;min-width:0}
+.swatches{display:grid;grid-template-columns:repeat(4,52px);gap:8px}
+.sw{width:52px;height:52px;border-radius:12px;border:3px solid rgba(0,0,0,.18);box-shadow:0 3px 0 rgba(0,0,0,.15);display:grid;place-items:center;padding:0}
+.sw b{font:400 22px var(--display);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.sw.on{outline:4px solid var(--night);outline-offset:2px}
+.sw[data-c="0"]{background:repeating-linear-gradient(45deg,#fff 0 6px,#eee 6px 12px)!important}
+.keyh{font:700 14px var(--body);letter-spacing:1.6px;text-transform:uppercase;color:var(--muted)}
+.savedbox{display:grid;gap:4px;justify-items:start}
+.savedbox b{font:400 28px var(--display);color:var(--leaf)}
+.savedbox svg{width:110px;border:2px solid var(--line);border-radius:8px}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;width:100%;max-width:1000px}
+.gcard{background:var(--card);border:3px solid var(--line);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;box-shadow:0 4px 0 var(--line)}
+.gcard svg{width:100%;max-width:150px;border:2px solid var(--line);border-radius:8px;display:block}
+.gcard b{font:400 18px var(--display)}
+.gcard .toggles{justify-content:center;gap:6px}
+.gcard.pickable:active{transform:translateY(3px)}
+.mirrorwrap .pxgrid{border-color:var(--plum)}
+.px.fixl{background-image:linear-gradient(rgba(255,255,255,.0),rgba(255,255,255,.0))}
+.px.mline{box-shadow:inset -1px -1px 0 rgba(0,0,0,.09),inset -4px 0 0 var(--plum)}
+.px.edit{cursor:pointer}
+.match{position:relative;display:flex;justify-content:space-between;gap:clamp(60px,14vw,200px);width:100%;max-width:820px}
+.mlines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:2}
+.mcol{display:flex;flex-direction:column;gap:14px;justify-content:center;min-width:0}
+.mcard{position:relative;display:flex;align-items:center;gap:10px;background:var(--card);border:3px solid var(--line);border-radius:16px;padding:10px 12px;min-height:64px;touch-action:none;cursor:pointer;box-shadow:0 4px 0 var(--line)}
+.mcard[data-side=L]{justify-content:flex-end}
+.dot{width:22px;height:22px;border-radius:50%;background:var(--sky);border:3px solid #fff;box-shadow:0 0 0 2px var(--sky);flex:none}
+.mcard.selected{border-color:var(--gold);box-shadow:0 0 0 4px var(--gold)}
+.mcard.matched{border-color:var(--leaf);background:#e6f0da}
+.mcard.matched .dot{background:var(--leaf);box-shadow:0 0 0 2px var(--leaf)}
+.mnum{font:400 36px/1 var(--display);color:var(--night);min-width:44px;text-align:center}
+.mtext{font:400 clamp(18px,2.6vw,26px)/1.1 var(--display);color:var(--night)}
+.fixrow.mini{max-width:200px}
+.fixrow.mini .ani{width:34px}
+.mclock .clock{width:96px}
+.mcoins{display:flex;gap:4px;flex-wrap:wrap;max-width:160px}
+.mcoins .coin{width:36px}
+.ml{stroke-width:6;stroke-linecap:round}
+.ml.ok{stroke:var(--leaf)}.ml.live{stroke:var(--sky);stroke-dasharray:2 11}.ml.bad{stroke:var(--berry)}
+.trace{touch-action:none;max-width:100%}
+.trace svg{width:100%;display:block;background:var(--card);border:3px solid var(--line);border-radius:22px;touch-action:none}
+.tg{fill:none;stroke:#e6e0cc;stroke-width:22;stroke-linecap:round;stroke-linejoin:round}
+.tc{fill:none;stroke:#b5ad94;stroke-width:2;stroke-dasharray:2 6;stroke-linecap:round}
+.tp{fill:none;stroke:var(--sky);stroke-width:15;stroke-linecap:round;stroke-linejoin:round}
+.tdot{fill:var(--leaf);stroke:#fff;stroke-width:3}
+.tarrow{fill:none;stroke:var(--leaf);stroke-width:4;stroke-linecap:round}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important}}
 @media (max-width:560px){.pick{min-width:76px;height:80px;font-size:38px}.arrow{display:none}.btn{font-size:20px;min-height:56px;padding:10px 16px}}
 </style>
@@ -355,8 +431,15 @@ function cakeSvg(shape,cut){const F='#f2c6d0',T='#e889a2',D='#7a3b2e';let body,l
   const L=(x1,y1,x2,y2)=>lines+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${D}" stroke-width="4" stroke-linecap="round"/>`;
   if(cut==='h2')L(50,6,50,94);if(cut==='h2b')L(6,50,94,50);if(cut==='u2')L(26,13,26,87);if(cut==='u2b')L(13,72,87,72);if(cut==='e4'){L(50,6,50,94);L(6,50,94,50)}if(cut==='e3'){L(50,50,50,6);L(50,50,87,72);L(50,50,13,72)}if(cut==='u3'){L(30,10,30,90);L(62,8,62,92)}}
  return`<svg class="cake" viewBox="0 0 100 100" aria-hidden="true">${body}<circle cx="30" cy="28" r="3" fill="#fff"/><circle cx="66" cy="70" r="3" fill="#fff"/><circle cx="72" cy="30" r="3" fill="#d9363e"/>${lines}</svg>`}
+const ICON={
+ pencil:px(['........kk','.......kyk','......kyyk','.....kyyk.','....kyyk..','...kyyk...','..kyyk....','.knnk.....','.kkk......','k.........'],{k:'#1d2b1f',y:'#f4c34b',n:'#e7c9a0'}),
+ paint:px(['rrggbb','rrggbb','yyoopp','yyoopp','bbiiaa','bbiiaa'],{r:'#e53935',g:'#43a047',b:'#1e88e5',y:'#fdd835',o:'#fb8c00',p:'#8e24aa',i:'#f48fb1',a:'#9e9e9e'}),
+ mirror:px(['pp.kk.pp','ppp..ppp','pppkkppp','.ppkkpp.','.ppkkpp.','pppkkppp','pp....pp'],{p:'#8e24aa',k:'#1d2b1f'}),
+ frame:px(['nnnnnnnn','nssssssn','nsyssssn','nssssggn','nsgggggn','nggggggn','nnnnnnnn'],{n:'#8d6e63',s:'#7fd0f0',y:'#fdd835',g:'#43a047'}),
+ match:`<svg class="tok" viewBox="0 0 60 40" aria-hidden="true"><rect x="2" y="4" width="18" height="14" rx="3" fill="#fffdf6" stroke="#1d2b1f" stroke-width="2"/><rect x="40" y="22" width="18" height="14" rx="3" fill="#fffdf6" stroke="#1d2b1f" stroke-width="2"/><line x1="20" y1="11" x2="40" y2="29" stroke="#3d7a3d" stroke-width="4" stroke-linecap="round"/></svg>`,
+ trace:`<svg class="tok" viewBox="0 0 64 40" aria-hidden="true"><text x="32" y="32" text-anchor="middle" font-family="Lilita One,Arial Rounded MT Bold,sans-serif" font-size="30" fill="#fffdf6" stroke="#2f86b8" stroke-width="2" stroke-dasharray="3 3">123</text></svg>`};
 const isBlock=k=>k in BL;
-function art(k){if(isBlock(k))return cube(k);if(TOK[k])return TOK[k];let m;
+function art(k){if(isBlock(k))return cube(k);if(TOK[k])return TOK[k];if(ICON[k])return ICON[k];let m;
  if((m=k.match(/^coin(\d+)$/)))return coin(+m[1]);if(k==='ten')return rod(10);if(k==='one')return rod(1);if(k==='clock')return clockFace(3,0,false);
  if((m=k.match(/^t(\d+)_(\d+)$/)))return`<span class="tcard">${+m[2]?'half past '+m[1]:m[1]+" o'clock"}</span>`;
  if(/^n\d+$/.test(k))return`<span class="ntile">${k.slice(1)}</span>`;return ani(k)}
@@ -372,10 +455,12 @@ const BUILDS=[
  {name:"Nel's house",g:['....RR....','...RRRR...','..RRRRRR..','.RRRRRRRR.','..WWWWWW..','..WGWWGW..','..WWDDWW..','..SSDDSS..']},
  {name:'The farm barn',g:['...RRRR...','..RRRRRR..','.RRRRRRRR.','.WWWGGWWW.','.WWDDDDWW.','.WWDDDDWW.','.SSDDDDSS.']},
  {name:'The big tree',g:['...LLLL...','..LLLLLL..','.LLLLLLLL.','.LLLLLLLL.','..LLLLLL..','....TT....','....TT....','....TT....']},
- {name:'The castle',g:['S.S...S.S','SSS...SSS','SSSSSSSSS','SSGSSSGSS','SSSSDSSSS','SSSSDSSSS']}
+ {name:'The castle',g:['S.S...S.S','SSS...SSS','SSSSSSSSS','SSGSSSGSS','SSSSDSSSS','SSSSDSSSS']},
+ {name:'The rocket',g:['....R....','...RRR...','...PPP...','..PPGPP..','..PPPPP..','..PPGPP..','..PPPPP..','.RPPPPPR.','RRPPPPPRR','R..S.S..R']},
+ {name:'The boat',g:['....T.....','....TP....','....TPP...','....TPPP..','....TPPPP.','....T.....','WWWWWWWWWW','.WWWWWWWW.','..WWWWWW..']}
 ];
 BUILDS.forEach(b=>{b.cells=[];for(let y=b.g.length-1;y>=0;y--)for(let x=0;x<b.g[y].length;x++)if(b.g[y][x]!=='.')b.cells.push([x,y,b.g[y][x]])});
-const MAT={S:['#8f9397','#6f7377'],W:['#b8874f','#8e6435'],R:['#b5482f','#8a3320'],G:['#a8def2','#ffffff'],D:['#6b4426','#e7c35a'],L:['#4d9a3a','#3a7d2b'],T:['#6e4626','#4c321c']};
+const MAT={S:['#8f9397','#6f7377'],W:['#b8874f','#8e6435'],R:['#b5482f','#8a3320'],G:['#a8def2','#ffffff'],D:['#6b4426','#e7c35a'],L:['#4d9a3a','#3a7d2b'],T:['#6e4626','#4c321c'],P:['#f4f1e8','#d9d3c4']};
 function buildAt(g){let i=0,rem=g;while(rem>=BUILDS[i%BUILDS.length].cells.length){rem-=BUILDS[i%BUILDS.length].cells.length;i++}return{i,b:BUILDS[i%BUILDS.length],placed:rem}}
 function drawBuild(b,placed,newFrom=placed){const W=Math.max(...b.g.map(r=>r.length)),H=b.g.length,c=10;let s=`<svg viewBox="-2 -2 ${W*c+4} ${H*c+8}" aria-hidden="true"><rect x="-2" y="${H*c}" width="${W*c+4}" height="8" fill="#6b4526"/><rect x="-2" y="${H*c}" width="${W*c+4}" height="3" fill="#7cc444"/>`;
  b.cells.forEach(([x,y,m],i)=>{const X=x*c,Y=y*c;if(i<placed){const [a,d]=MAT[m];const delay=i>=newFrom?` class="newb" style="animation-delay:${(i-newFrom)*.18+.2}s"`:'';
@@ -397,7 +482,7 @@ function vars(s){const f=(n,base)=>{const p=n<=4?base:n<=6?base*.88:n<=9?base*.7
  return`--as:${f(s.a||1,96)};--bs:${f(s.b||1,62)};--ts:${f(s.t||1,56)};--ns:${f(s.n||1,78)}`}
 
 /* ================= missions ================= */
-const CH={farm:['Counting on the farm','var(--leaf)'],village:['Adding in the village','var(--sky)'],mine:['Taking away at the mine','var(--clay)'],compare:['Bigger, smaller + equal','var(--plum)'],pattern:['Patterns + sharing','var(--berry)'],groups:['Groups + times','#8a5a32'],money:['The block shop','#b98a10'],time:['Clock tower','#5d6165'],fractions:['Halves + quarters','var(--berry)'],place:['Tens + ones','var(--leaf)']};
+const CH={farm:['Counting on the farm','var(--leaf)'],village:['Adding in the village','var(--sky)'],mine:['Taking away at the mine','var(--clay)'],compare:['Bigger, smaller + equal','var(--plum)'],pattern:['Patterns + sharing','var(--berry)'],groups:['Groups + times','#8a5a32'],draw:['Drawing room','var(--plum)'],money:['The block shop','#b98a10'],time:['Clock tower','#5d6165'],fractions:['Halves + quarters','var(--berry)'],place:['Tens + ones','var(--leaf)']};
 const M=[
 /* ---- 1. Round up ---- */
 {id:'count',ch:'farm',icon:'pig',title:'Round up the animals',blurb:'Herd them into the pen',
@@ -449,6 +534,33 @@ const M=[
    check(){return{ok:[...document.querySelectorAll('#board .gap')].every(z=>itemsIn(z).length)}},
    onWin(){hop()},
    yes:`Yes! ${seq.join(', ')}.`}}},
+/* ---- Drawing room ---- */
+{id:'studio',ch:'draw',icon:'pencil',title:'Draw with Mummy',blurb:'Mummy draws, Nel colours in',screen:'studio'},
+{id:'cbn',ch:'draw',icon:'paint',title:'Colour by number',blurb:'Numbers and sums make colours',screen:'cbn'},
+{id:'match',ch:'draw',icon:'match',title:'Matching lines',blurb:'Draw a line to its partner',
+ lv:['Count and match','Sums and answers','Clocks, coins, halves'],
+ gen(l){let pairs;
+  if(l===1){const ns=shuffle([1,2,3,4,5,6]).slice(0,3),k=pick(ANIMALS);pairs=ns.map(n=>({L:`<div class="fixrow mini">${Array.from({length:n},()=>ani(k)).join('')}</div>`,R:`<span class="mnum">${n}</span>`,k:n}))}
+  else if(l===2){const ts=shuffle([2,3,4,5,6,7,8,9,10]).slice(0,4);pairs=ts.map(t=>{const a=R(1,t-1);return{L:`<span class="mtext">${a} + ${t-a}</span>`,R:`<span class="mnum">${t}</span>`,k:t}})}
+  else{const h=R(1,12),hm=pick([0,30]),ct=R(3,9),coins=[];let rem=ct;while(rem>0){const c=pick([5,2,1].filter(v=>v<=rem));coins.push(c);rem-=c}
+   const hv=2*R(2,6),T=R(2,6),O=R(1,9);
+   pairs=[{L:`<div class="mclock">${clockFace(h,hm,false)}</div>`,R:`<span class="mtext">${hm?'half past '+h:h+" o'clock"}</span>`,k:'c'+h+hm},
+    {L:`<div class="mcoins">${coins.sort((a,b)=>b-a).map(c=>coin(c)).join('')}</div>`,R:`<span class="mnum">${ct}p</span>`,k:'p'+ct},
+    {L:`<span class="mtext">half of ${hv}</span>`,R:`<span class="mnum">${hv/2}</span>`,k:'h'+hv},
+    {L:`<span class="mtext">${T} tens and ${O} ${pl(O,'one')}</span>`,R:`<span class="mnum">${T*10+O}</span>`,k:'t'+(T*10+O)}]}
+  const order=shuffle(pairs.map((_,i)=>i));
+  return{sig:pairs.map(p=>p.k).sort().join(),say:'Draw a line from each one to its partner.',size:{},zones:{},auto:true,
+   html:`<div class="match" id="match"><svg class="mlines" id="mlines"></svg><div class="mcol">${pairs.map((p,i)=>`<div class="mcard" data-side="L" data-key="${i}">${p.L}<span class="dot"></span></div>`).join('')}</div><div class="mcol">${order.map(i=>`<div class="mcard" data-side="R" data-key="${i}"><span class="dot"></span>${pairs[i].R}</div>`).join('')}</div></div>`,
+   init(){bindMatch()},check(){return{ok:false}},yes:'Yes! You matched them all.'}}},
+{id:'mirror',ch:'draw',icon:'mirror',title:'Mirror pictures',blurb:'Copy it on the other side',
+ lv:['Small and simple','Bigger pictures','Two colours'],
+ gen(l){const hw=l===1?3:l===2?4:5,h=l===1?5:6,n=l===1?R(3,5):l===2?R(6,9):R(8,12),cols=l===3?shuffle([2,5,6,3,7]).slice(0,2):[pick([2,5,6,7,3])];
+  const left=randomHalf(hw,h,n,cols);return{sig:left.join(''),...mirrorRound(hw,h,left,cols,l===3)}}},
+{id:'trace',ch:'draw',icon:'trace',title:'Number writing',blurb:'Trace numbers with your finger',
+ lv:['1 to 5','6 to 9 and 0','Numbers 10 to 20'],
+ gen(l){const s=l===1?String(R(1,5)):l===2?String(pick([6,7,8,9,0])):String(R(10,20));
+  return{sig:s,say:`Trace the number ${s}. Start at the green dot.`,size:{},zones:{},auto:true,html:'<div class="trace" id="trace"></div>',init(){bindTrace(s)},check(){return{ok:false}},yes:`Yes! You wrote ${s}!`}}},
+{id:'gallery',ch:'draw',icon:'frame',title:'Gallery',blurb:"Mummy's drawings and Nel's colouring",screen:'gallery'},
 /* ---- 5. Add ---- */
 {id:'add',ch:'village',icon:'sheep',title:'Into the barn',blurb:'Join two groups together',
  lv:['Totals up to 5','Totals up to 10','Totals up to 20'],
@@ -692,7 +804,7 @@ function changed(z){updBadges();if(!RD||RD.locked)return;$('#fb').innerHTML='';
  if(z&&z.dataset.count==='on'&&cfg(z).target){const n=itemsIn(z).length;if(n&&n<=20)say(String(n))}
  if(z&&z.dataset.sum==='on'){const t=zoneSum(z);if(t)say(t===1?'1 penny':t+' pence')}
  if(RD.auto){const r=RD.check();if(r.ok)return boardDone();if(r.msg){wrong(r.msg);if(r.undo)setTimeout(()=>r.undo.isConnected&&sendHome(r.undo),900)}}}
-function note(t){$('#fb').innerHTML=`<div class="soft pop">${t}</div>`}
+function note(t){const f=$('#fb');if(f)f.innerHTML=`<div class="soft pop">${t}</div>`}
 function wrong(msg){if(!msg)return;S.miss++;sfx.no();note(msg);say(msg);if(S.miss>=2)hintOn()}
 function hintOn(){allZones().filter(z=>cfg(z).target&&!z.classList.contains('gap')).forEach(z=>{z.classList.add('numbered');z.dataset.count='on'});updBadges();
  if(RD&&RD.locked)document.querySelector(`.pick[data-v="${RD.q.answer}"]`)?.classList.add('glow')}
@@ -703,7 +815,8 @@ function speakerBtn(){return`<button class="speak" data-act="speak" aria-label="
 function genUnique(m,l){const key=m.id+l,rec=DB.recent[key]||[];let r;
  for(let t=0;t<60;t++){r=m.gen(l);if(!S.used.has(r.sig)&&(t>35||!rec.includes(r.sig)))break}
  if(r.custom)r.custom0={...r.custom};S.used.add(r.sig);DB.recent[key]=[...rec.filter(s=>s!==r.sig),r.sig].slice(-6);save();return r}
-function start(id,l){const m=M.find(x=>x.id===id);S={m,l,i:0,total:DB.rounds||5,first:0,miss:0,used:new Set(),startGold:DB.gold};setBar(m.title,`${LV[l-1][0]} · ${m.lv[l-1]}`,true);next()}
+function start(id,l){const m=M.find(x=>x.id===id);startWith(m,l,DB.rounds||5)}
+function startWith(m,l,total){S={m,l,i:0,total,first:0,miss:0,used:new Set(),startGold:DB.gold};setBar(m.title,`${LV[l-1][0]} · ${m.lv[l-1]}`,true);next()}
 function next(){if(S.i>=S.total)return finish();RD=S.m.gen?genUnique(S.m,S.l):null;S.miss=0;clearSel();render();say(RD.say)}
 function progress(){return`<div class="progress" aria-label="Round ${S.i+1} of ${S.total}">${Array.from({length:S.total},(_,i)=>cube('gold',i<S.i?'done':i===S.i?'now':'')).join('')}</div>`}
 function render(){const r=RD;const isCol=r.html.startsWith('<div class="board col"');
@@ -711,7 +824,7 @@ function render(){const r=RD;const isCol=r.html.startsWith('<div class="board co
  <div class="board${isCol?' col':''}" id="board" style="${vars(r.size||{})}">${isCol?r.html.replace(/^<div class="board col"[^>]*>/,'').replace(/<\/div>$/,''):r.html}</div>
  <div class="tools" id="tools">${r.herd?`<button class="btn soft" data-act="herd">${r.herd}</button>`:''}${r.auto||r.qNow?'':`<button class="btn soft" data-act="reset">Start again</button><button class="btn go" data-act="done">Done!</button>`}</div>
  <div id="q"></div><div class="fb" id="fb"></div><button class="chip small" data-act="stopnow">${S.i?'Finish here':'Stop for now'}</button>`;
- updBadges();stage().scrollTop=0;if(r.qNow){RD.locked=true;$('#board').classList.add('locked');setTimeout(ask,50)}}
+ updBadges();stage().scrollTop=0;if(r.init)r.init();if(r.qNow){RD.locked=true;$('#board').classList.add('locked');setTimeout(ask,50)}}
 function boardDone(){RD.locked=true;clearSel();$('#board').classList.add('locked');$('#tools').innerHTML='';
  if(RD.q){if(RD.q.answer==='auto'){const h=itemsIn('tA').length;RD.q.answer=h;RD.q.sentence=`${h} and ${h}`;RD.q.choices=choicesFor(h,1,20)}
   sfx.yes();$('#fb').innerHTML='<div class="yes pop">Great!</div>';setTimeout(ask,700)}
@@ -719,7 +832,7 @@ function boardDone(){RD.locked=true;clearSel();$('#board').classList.add('locked
 function ask(){const q=RD.q;RD.asking=true;$('#ptext').textContent=q.say;if(!RD.qNow)say(q.say);$('#fb').innerHTML='';
  $('#q').innerHTML=`<div class="sentence pop">${q.sentence}</div><div class="choices">${q.choices.map(c=>`<button class="pick" data-act="answer" data-v="${c}">${c}</button>`).join('')}</div><p class="hint">Tap a group to count it.</p>`;
  $('#q').scrollIntoView({behavior:RM?'auto':'smooth',block:'nearest'})}
-function correct(text){RD.locked=true;RD.won=true;if(!S.miss)S.first++;S.i++;DB.gold++;save();$('#gold').textContent=DB.gold;sfx.yes();say(text);
+function correct(text){RD.locked=true;RD.won=true;if(!S.miss)S.first++;S.i++;S.won=(S.won||0)+1;addBlocks(1);flyBlock();confetti(28);sfx.yes();say(text);
  const p=document.querySelector('.progress');if(p)p.outerHTML=progress();
  document.querySelectorAll('#board .item').forEach((it,i)=>anim(it,[{transform:'none'},{transform:'translateY(-16px)'},{transform:'none'}],{duration:420,delay:i*35}));
  if(RD.onWin)RD.onWin();const bd=$('#buddy');if(bd)anim(bd,[{transform:'none'},{transform:'translateY(-22px) rotate(-8deg)'},{transform:'none'},{transform:'translateY(-12px)'},{transform:'none'}],{duration:800});
@@ -730,11 +843,11 @@ function hop(){const steps=[...document.querySelectorAll('#board .trailstep')];c
 
 /* ================= screens ================= */
 function showHome(){S=null;RD=null;setBar('Block Maths Adventures','Made for Nel',false);
- const st=buildAt(DB.gold),by={};M.forEach(m=>(by[m.ch]=by[m.ch]||[]).push(m));
+ const bs=bstate(),B=BUILDS[bs.cur],by={};M.forEach(m=>(by[m.ch]=by[m.ch]||[]).push(m));
  stage().innerHTML=`<div class="home-top"><div class="hello">${DB.buddy!=='none'?`<span class="buddy">${ani(DB.buddy)}</span>`:''}<h2>Pick a mission, Nel!</h2><p>Drag things around or tap them. Win treasure blocks to build with.</p></div>
-  <div class="buildcard">${drawBuild(st.b,st.placed)}<div style="min-width:0;flex:1"><b>${st.b.name}</b><span>${st.placed} of ${st.b.cells.length} blocks${st.i?` · ${st.i} ${pl(st.i,'build')} finished`:''}</span><div class="meter"><i style="width:${Math.round(st.placed/st.b.cells.length*100)}%"></i></div></div></div></div>
+  <div class="buildcard">${drawBuild(B,bs.placed)}<div style="min-width:0;flex:1"><b>${B.name}</b><span>${bs.placed} of ${B.cells.length} blocks</span><div class="meter"><i style="width:${Math.round(bs.placed/B.cells.length*100)}%"></i></div><div class="toggles" style="margin-top:10px"><button class="chip small" data-act="village">Nel's village${bs.done.length?` (${bs.done.length})`:''}</button>${bs.choose?'<button class="chip small" data-act="choose">Pick the next build</button>':''}</div></div></div></div>
  ${Object.entries(by).map(([c,ms])=>`<section class="chapter"><h3>${CH[c][0]}</h3><div class="tiles">${ms.map(m=>{const b=DB.best[m.id]||0;
-   return`<button class="tile" style="--c:${CH[c][1]}" data-act="mission" data-id="${m.id}"><span class="ic">${art(m.icon)}</span><span><b>${m.title}</b><span>${m.blurb}</span><span class="stars">${[1,2,3].map(i=>`<i class="${b>=i?'on':''}"></i>`).join('')}</span></span></button>`}).join('')}</div></section>`).join('')}
+   return`<button class="tile" style="--c:${CH[c][1]}" data-act="mission" data-id="${m.id}"><span class="ic">${art(m.icon)}</span><span><b>${m.title}</b><span>${m.blurb}</span>${m.screen?'':`<span class="stars">${[1,2,3].map(i=>`<i class="${b>=i?'on':''}"></i>`).join('')}</span>`}</span></button>`}).join('')}</div></section>`).join('')}
  <div class="foot"><div class="toggles"><button class="chip" data-act="voice" aria-pressed="${DB.voice}">Read aloud</button><button class="chip" data-act="sound" aria-pressed="${DB.sound}">Sounds</button></div><button class="chip" data-act="notes">Grown-ups: settings + notes</button></div>`;
  stage().scrollTop=0}
 function showLevels(id){const m=M.find(x=>x.id===id);S=null;RD=null;setBar(m.title,CH[m.ch][0],true);
@@ -743,13 +856,13 @@ function showLevels(id){const m=M.find(x=>x.id===id);S=null;RD=null;setBar(m.tit
  <p class="tip"><b>Niamh:</b> Nel can drag things, or tap them. Tap a thing to move it, tap it again to send it back. Tap a pen or basket to drop one in.</p>`;
  say(`${m.title}. Pick explore, build, or power up.`)}
 function logIt(routes){DB.logs.unshift({d:Date.now(),m:S.m.id,l:S.l,done:S.i,of:S.total,first:S.first,routes});DB.logs=DB.logs.slice(0,200);save()}
-function finish(){const m=S.m;DB.best[m.id]=Math.max(DB.best[m.id]||0,S.l);logIt([]);save();sfx.win();RD=null;
- const won=DB.gold-S.startGold,before=buildAt(S.startGold),now=buildAt(DB.gold);let pic,msg;
- if(now.i>before.i){pic=drawBuild(before.b,before.b.cells.length,before.placed);msg=`You finished ${before.b.name}! Next up: ${now.b.name.toLowerCase()}.`;say(`Mission complete! You finished ${before.b.name}!`)}
- else{pic=drawBuild(now.b,now.placed,now.placed-won);msg=`${won} new ${pl(won,'block')} on ${now.b.name.replace(/^The /,'the ')}. ${now.b.cells.length-now.placed} to go!`;say('Mission complete! Brilliant work, Nel!')}
- if(S.early)DB.logs[0].routes=['Stopped early'];
- stage().innerHTML=`<div class="done"><h2>${S.early?'Great work, Nel!':'Mission complete!'}</h2><p>${msg}</p><div class="bigbuild">${pic}</div>
-  <div class="tools"><button class="btn go" data-act="again">Play again</button>${S.l<3?`<button class="btn gold" data-act="up">Try ${LV[S.l][0]}</button>`:''}<button class="btn soft" data-act="home">Other missions</button></div>
+function finish(){const m=S.m;if(!m.custom)DB.best[m.id]=Math.max(DB.best[m.id]||0,S.l);logIt(S.early?['Stopped early']:[]);save();RD=null;
+ const b=bstate();if(b.fresh&&b.fresh.length){S.i=S.total;return celebrateBuild()}
+ const won=S.won||0,B=BUILDS[b.cur],left=B.cells.length-b.placed;
+ sfx.win();confetti(70);for(let k=0;k<won;k++)tone(880+k*70,.08,k*.18+.4,'square',.035);
+ say(S.early?'Great work, Nel!':'Mission complete! Brilliant work, Nel!');
+ stage().innerHTML=`<div class="done"><h2>${S.early?'Great work, Nel!':'Mission complete!'}</h2><p>${won} new ${pl(won,'block')} on ${B.name.replace(/^The /,'the ')}. ${left} to go!</p><div class="bigbuild">${drawBuild(B,b.placed,Math.max(0,b.placed-won))}</div>
+  <div class="tools"><button class="btn go" data-act="again">Play again</button>${S.l<3&&!m.custom?`<button class="btn gold" data-act="up">Try ${LV[S.l][0]}</button>`:''}<button class="btn soft" data-act="home">Other missions</button></div>
   <div class="routes"><h3>For Niamh · optional · how did Nel join in?</h3><div class="toggles">${ROUTES.map(r=>`<button class="chip" data-act="route" data-v="${r}" aria-pressed="false">${r}</button>`).join('')}</div></div></div>`;
  S.i=S.total;stage().scrollTop=0}
 function showNotes(){S=null;RD=null;setBar('Grown-ups','Settings and notes',true);document.body.classList.toggle('calm',!!DB.calm);
@@ -766,10 +879,257 @@ function showNotes(){S=null;RD=null;setBar('Grown-ups','Settings and notes',true
  ${DB.logs.length?DB.logs.map(L=>`<div class="note"><div class="top"><span>${name(L.m)} · ${LV[L.l-1][0]}</span><span class="when">${fmt(L.d)}</span></div><div>${L.done} of ${L.of} rounds · ${L.first} right first try</div>${L.routes.length?`<div class="tags">${L.routes.map(r=>`<span>${r}</span>`).join('')}</div>`:''}</div>`).join(''):'<div class="empty-note">No missions played yet.</div>'}
  ${DB.logs.length?'<div class="confirm"><button class="chip" data-act="clear">Clear all notes</button></div>':''}</div>`}
 
+/* ================= builds, village + celebrations ================= */
+function bstate(){if(!DB.bld){const st=buildAt(DB.gold);DB.bld={cur:st.i%BUILDS.length,placed:st.placed,done:Array.from({length:st.i},(_,i)=>i%BUILDS.length),fresh:[],choose:false};save()}return DB.bld}
+function nextBuild(b){const notYet=BUILDS.map((_,i)=>i).filter(i=>!b.done.includes(i));return notYet.length?notYet[0]:(b.cur+1)%BUILDS.length}
+function addBlocks(n){const b=bstate();DB.gold+=n;b.placed+=n;const done=[];
+ while(b.placed>=BUILDS[b.cur].cells.length){b.placed-=BUILDS[b.cur].cells.length;b.done.push(b.cur);done.push(b.cur);b.cur=nextBuild(b)}
+ if(done.length){b.fresh=[...(b.fresh||[]),...done];b.choose=true}save();return done}
+function bumpPurse(){$('#gold').textContent=DB.gold;anim($('.purse'),[{transform:'scale(1)'},{transform:'scale(1.3)'},{transform:'scale(1)'}],{duration:380});tone(1568,.12,0,'sine',.05)}
+function flyBlock(from){const to=$('#purseCube'),src=from||$('#board')||$('.pxgrid')||stage();if(!to||RM||!src){bumpPurse();return}
+ const r0=src.getBoundingClientRect(),r1=to.getBoundingClientRect(),g=document.createElement('div');g.className='flyer';g.innerHTML=cube('gold');document.body.appendChild(g);
+ const sx=r0.left+r0.width/2-20,sy=r0.top+Math.min(r0.height/2,240)-23,ex=r1.left,ey=r1.top;
+ const a=g.animate([{transform:`translate(${sx}px,${sy}px) scale(1.7) rotate(0deg)`},{transform:`translate(${(sx+ex)/2}px,${Math.min(sy,ey)-60}px) scale(1.4) rotate(160deg)`,offset:.55},{transform:`translate(${ex}px,${ey}px) scale(.75) rotate(360deg)`}],{duration:900,easing:'ease-in-out'});
+ a.onfinish=()=>{g.remove();bumpPurse()}}
+function confetti(n=80,rain=false){if(RM)return;const c=document.createElement('canvas');c.className='confetti';document.body.appendChild(c);
+ const dpr=Math.min(2,window.devicePixelRatio||1),W=innerWidth,H=innerHeight;c.width=W*dpr;c.height=H*dpr;const x=c.getContext('2d');x.scale(dpr,dpr);
+ const cols=[['#7cc444','#5fa832'],['#ffde5c','#d39a17'],['#a5a9ad','#6f7377'],['#c99a5b','#7a5230'],['#4fd1e0','#1f97aa'],['#f2a5b0','#d9564a']];
+ const P=Array.from({length:n},()=>({x:rain?Math.random()*W:W/2+(Math.random()-.5)*W*.3,y:rain?-20-Math.random()*H:H*.5,vx:(Math.random()-.5)*(rain?1.5:11),vy:rain?1.5+Math.random()*3:-7-Math.random()*9,s:9+Math.random()*11,r:Math.random()*6,vr:(Math.random()-.5)*.25,c:pick(cols)}));
+ const t0=performance.now();(function f(t){x.clearRect(0,0,W,H);let alive=0;for(const p of P){p.vy+=rain?.04:.34;p.vx*=.995;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;if(p.y<H+40)alive++;
+  x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c[0];x.fillRect(-p.s/2,-p.s/2,p.s,p.s);x.fillStyle=p.c[1];x.fillRect(-p.s/2,p.s/6,p.s,p.s/3);x.restore()}
+  if(alive&&t-t0<7000)requestAnimationFrame(f);else c.remove()})(t0)}
+function fanfare(){[523,659,784,659,784,1047,1047,1319,1568].forEach((f,i)=>tone(f,.22,i*.14,'square',.05))}
+function celebrateBuild(){const b=bstate(),id=b.fresh[0],B=BUILDS[id];b.vnew=[...(b.vnew||[]),...b.fresh];b.fresh=[];save();S=null;RD=null;setBar('Hooray!','A build is finished',true);
+ const nm2=B.name.replace(/^The /,'the ');
+ stage().innerHTML=`<div class="done party"><h2>You built ${nm2}!</h2><p>Every block came from your maths. Amazing, Nel!</p>
+  <div class="bigbuild bounce">${drawBuild(B,B.cells.length,B.cells.length)}</div>
+  ${DB.buddy!=='none'?`<span class="buddy dance">${ani(DB.buddy)}</span>`:''}
+  <div class="tools"><button class="btn gold" data-act="village">Put it in your village</button></div></div>`;
+ fanfare();confetti(160,true);setTimeout(()=>confetti(90),900);say(`Hooray! You built ${nm2}! Let's put it in your village.`)}
+function showVillage(){S=null;RD=null;const b=bstate(),fr=b.vnew||[],n=b.done.length,cur=BUILDS[b.cur];
+ setBar("Nel's village",`${n} ${pl(n,'build')} finished`,true);
+ const cards=b.done.map((id,i)=>{const isNew=i>=n-fr.length;return`<button class="vb${isNew?' vnew':''}" data-act="vtap" data-i="${id}" style="${isNew?`animation-delay:${(i-(n-fr.length))*.5+.2}s`:''}">${drawBuild(BUILDS[id],BUILDS[id].cells.length)}<span>${BUILDS[id].name}</span></button>`}).join('');
+ stage().innerHTML=`<div class="village"><div class="vrow">${cards||'<p class="hint" style="align-self:center">Finish your first build and it will live here.</p>'}
+  <div class="vb wip">${drawBuild(cur,b.placed)}<span>Building: ${cur.name} · ${b.placed} of ${cur.cells.length}</span></div></div><div class="vgrass"></div></div>
+  <div class="tools">${b.choose?'<button class="btn gold" data-act="choose">Choose the next build</button>':''}<button class="btn soft" data-act="home">Back to missions</button></div>`;
+ if(fr.length){setTimeout(()=>{confetti(70);sfx.win()},500);say(`Here's your village! ${b.choose?'What shall we build next?':''}`)}
+ b.vnew=[];save()}
+function showChooser(){S=null;RD=null;const b=bstate();setBar('What shall we build next?',"Nel's village",true);
+ stage().innerHTML=`<div class="choosegrid">${BUILDS.map((B,i)=>{const n=b.done.filter(x=>x===i).length;return`<button class="vchoice${i===b.cur?' on':''}" data-act="pickbuild" data-i="${i}">${drawBuild(B,B.cells.length)}<b>${B.name}</b><span>${B.cells.length} blocks${n?` · built ${n}×`:''}</span></button>`}).join('')}</div>`;
+ say('What shall we build next? You pick!')}
+function reward(n,msg){const done=addBlocks(n);confetti(90);sfx.win();say(msg);for(let i=0;i<n;i++)setTimeout(()=>flyBlock(),i*260);
+ if(done.length)setTimeout(celebrateBuild,1600+n*260);return done}
+
+/* ================= Drawing room ================= */
+const PAL=['#ffffff','#1d1d1d','#e53935','#fb8c00','#fdd835','#43a047','#1e88e5','#8e24aa','#f48fb1','#8d6e63','#9e9e9e','#7fd0f0'];
+const PALN=['rubber','black','red','orange','yellow','green','blue','purple','pink','brown','grey','sky blue'];
+const LET={'.':0,k:1,r:2,o:3,y:4,g:5,b:6,p:7,i:8,n:9,a:10,s:11};
+function fromRows(id,name,rows){const cells=[];for(let y=0;y<12;y++){const r=(rows[y]||'').padEnd(12,'.');for(let x=0;x<12;x++)cells.push(LET[r[x]]||0)}return{id,name,w:12,h:12,cells,by:'built'}}
+const BUILTIN=[
+ fromRows('b_apple','Apple',['sssssnssssss','sssssnggssss','sssrrnrrggss','ssrrrrrrrrss','srrirrrrrrrs','srrirrrrrrrs','srrrrrrrrrrs','srrrrrrrrrrs','ssrrrrrrrrss','ssrrrrrrrrss','sssrrrsrrrss','ssssssssssss']),
+ fromRows('b_house','House',['ssssssssyyss','sssssrrsyyss','ssssrrrrssss','sssrrrrrrsss','ssrrrrrrrrss','ssnnnnnnnnss','ssnbbnnbbnss','ssnbbnnbbnss','ssnnnoonnnss','ssnnnoonnnss','gggggooggggg','gggggggggggg']),
+ fromRows('b_tree','Apple tree',['ssssssssssss','ssssggggssss','sssggggggsss','ssggggggggss','ssggrgggrgss','ssggggggggss','sssggrgggsss','sssssnnsssss','sssssnnsssss','sssssnnsssss','gggggnnggggg','gggggggggggg']),
+ fromRows('b_fish','Fish',['bbbbbbbbbbbb','bbbbbbbbbbbb','bbbbbooobbbb','bobbooooobbb','boobooookoob','booooooooobb','boobooooooob','bobbooooobbb','bbbbbooobbbb','bbbbbbbbbbbb','yyyyyyyyyyyy','yyyyyyyyyyyy']),
+ fromRows('b_pig','Pig face',['ssiissssiiss','ssiiiiiiiiss','siiiiiiiiiis','siikiiiikiis','siiiiiiiiiis','siiirrrriiis','siiirkkriiis','siiirrrriiis','ssiiiiiiiiss','sssiiiiiisss','ssssssssssss','ssssssssssss'])
+];
+DB.art=DB.art||[];
+const allPics=()=>[...BUILTIN,...DB.art];
+const findPic=id=>allPics().find(p=>String(p.id)===String(id));
+function thumb(p){let s=`<svg viewBox="0 0 ${p.w} ${p.h}" shape-rendering="crispEdges" aria-hidden="true"><rect width="${p.w}" height="${p.h}" fill="#fff"/>`;p.cells.forEach((c,i)=>{if(c)s+=`<rect x="${i%p.w}" y="${(i/p.w)|0}" width="1.02" height="1.02" fill="${PAL[c]}"/>`});return s+'</svg>'}
+function gridHTML(w,h,cellFn,extra=''){let s=`<div class="pxgrid" style="--gw:${w};aspect-ratio:${w}/${h};${extra}">`;for(let i=0;i<w*h;i++)s+=cellFn(i);return s+'</div>'}
+function bindGrid(g,onCell){let down=false,last=-1;
+ const at=e=>{const el=document.elementFromPoint(e.clientX,e.clientY),c=el&&el.closest('.px');return c&&g.contains(c)?+c.dataset.i:-1};
+ g.addEventListener('pointerdown',e=>{down=true;last=-1;try{g.setPointerCapture(e.pointerId)}catch(_){}const i=at(e);if(i>=0){last=i;onCell(i,true)}e.preventDefault()});
+ g.addEventListener('pointermove',e=>{if(!down)return;const i=at(e);if(i>=0&&i!==last){last=i;onCell(i,false)}});
+ const up=()=>{down=false};g.addEventListener('pointerup',up);g.addEventListener('pointercancel',up)}
+function flood(w,h,i,pred){const out=[],seen=new Set([i]),st=[i];while(st.length){const j=st.pop();out.push(j);const x=j%w,y=(j/w)|0;
+ for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=w||ny>=h)continue;const k=ny*w+nx;if(!seen.has(k)&&pred(k)){seen.add(k);st.push(k)}}}return out}
+const paintCell=(g,i,c)=>{const el=g.children[i];if(el)el.style.background=c};
+const swatches=(act,cur,list=PAL.map((_,i)=>i).slice(1),labels)=>`<div class="swatches">${list.map(c=>`<button class="sw${cur===c?' on':''}" data-act="${act}" data-c="${c}" style="background:${PAL[c]}" aria-label="${PALN[c]}">${labels?`<b>${labels[c]}</b>`:''}</button>`).join('')}</div>`;
+
+/* ---- Draw with Mummy ---- */
+let ST=null;
+function showStudio(id){S=null;RD=null;const src=id?findPic(id):null;
+ ST={pic:src?{...src,cells:[...src.cells]}:{id:null,name:'',w:12,h:12,cells:Array(144).fill(0),by:'Mummy'},col:1,tool:'brush',undo:[]};
+ setBar('Draw with Mummy','Drawing room',true);renderStudio();say('Mummy draws, Nel watches. Then Nel can colour it in!')}
+function renderStudio(saved){const p=ST.pic;
+ stage().innerHTML=`<div class="studio"><div class="sgrid">${gridHTML(p.w,p.h,i=>`<div class="px" data-i="${i}" style="background:${PAL[p.cells[i]]}"></div>`)}</div>
+ <div class="sside" id="sside">${saved?savedPanel():`${swatches('pcol',ST.tool==='rubber'?-1:ST.col)}
+  <div class="toggles">${[['brush','Pencil'],['fill','Fill'],['rubber','Rubber']].map(([t,n])=>`<button class="chip small" data-act="ptool" data-t="${t}" aria-pressed="${ST.tool===t}">${n}</button>`).join('')}</div>
+  <div class="toggles"><button class="chip small" data-act="pundo">Undo</button><button class="chip small" data-act="pclear">Clear</button></div>
+  <button class="btn go" data-act="psave">Save drawing</button><button class="btn soft" data-act="gallery">Gallery</button>
+  <p class="hint" style="text-align:left">Tip: draw the outline in black. Nel can colour inside the lines.</p>`}</div></div>`;
+ if(saved)return;const g=stage().querySelector('.pxgrid');
+ bindGrid(g,(i,first)=>{if(first){ST.undo.push([...p.cells]);if(ST.undo.length>40)ST.undo.shift()}
+  if(ST.tool==='fill'){if(!first)return;const from=p.cells[i],to=ST.col;if(from===to)return;flood(p.w,p.h,i,k=>p.cells[k]===from).forEach(k=>{p.cells[k]=to;paintCell(g,k,PAL[to])});tone(700,.08,0,'sine',.04);return}
+  const v=ST.tool==='rubber'?0:ST.col;p.cells[i]=v;paintCell(g,i,PAL[v])})}
+function savedPanel(){const p=ST.pic,hasCol=p.cells.some(c=>c>1);return`<div class="savedbox"><b>Saved!</b><span>${p.name}</span>${thumb(p)}</div><p class="hint" style="text-align:left">Now it's Nel's turn:</p>
+ <button class="btn gold" data-act="gcolour" data-id="${p.id}">Colour it in</button>${hasCol?`<button class="btn soft" data-act="gcbn" data-id="${p.id}">Colour by number</button>`:''}<button class="btn soft" data-act="gmirror" data-id="${p.id}">Mirror challenge</button>
+ <button class="chip small" data-act="studioedit" data-id="${p.id}">Keep drawing</button>`}
+
+/* ---- Gallery ---- */
+function showGallery(){S=null;RD=null;setBar('Gallery','Drawing room',true);
+ const card=p=>`<div class="gcard">${thumb(p)}<b>${p.name}</b><span class="hint">${p.by==='Nel'?"Nel's colouring":'By Mummy'}</span><div class="toggles">
+  ${p.by!=='Nel'?`<button class="chip small" data-act="gcolour" data-id="${p.id}">Colour in</button>${p.cells.some(c=>c>1)?`<button class="chip small" data-act="gcbn" data-id="${p.id}">By number</button>`:''}<button class="chip small" data-act="gmirror" data-id="${p.id}">Mirror</button><button class="chip small" data-act="studioedit" data-id="${p.id}">Draw more</button>`:''}
+  <button class="chip small" data-act="gdel" data-id="${p.id}">Delete</button></div></div>`;
+ stage().innerHTML=`<div class="tools"><button class="btn go" data-act="studio">New drawing</button><button class="btn soft" data-act="cbnpick">Colour by number</button></div>
+ ${DB.art.length?`<div class="gal">${DB.art.map(card).join('')}</div>`:'<div class="empty-note">No drawings yet. Tap “New drawing” and Mummy can draw the first one.</div>'}`}
+
+/* ---- Colour it in ---- */
+let CI=null;
+function showColourIn(id){const src=findPic(id);if(!src)return showGallery();S=null;RD=null;
+ CI={src,cells:src.cells.map(c=>c===1?1:0),col:2,tool:'fill'};setBar('Colour it in',src.name,true);renderCI();say('Pick a colour, then tap to colour it in!')}
+function renderCI(){const p=CI.src;
+ stage().innerHTML=`<div class="studio"><div class="sgrid">${gridHTML(p.w,p.h,i=>`<div class="px" data-i="${i}" style="background:${PAL[CI.cells[i]]}"></div>`)}</div>
+ <div class="sside">${swatches('cicol',CI.col,[2,3,4,5,6,7,8,9,10,11,0].filter(c=>c))}
+ <div class="toggles"><button class="chip small" data-act="citool" data-t="fill" aria-pressed="${CI.tool==='fill'}">Fill a space</button><button class="chip small" data-act="citool" data-t="brush" aria-pressed="${CI.tool==='brush'}">Colour squares</button></div>
+ <button class="btn gold" data-act="cidone">Finished!</button><button class="chip small" data-act="gallery">Back to gallery</button></div></div>`;
+ const g=stage().querySelector('.pxgrid'),w=p.w,h=p.h;
+ bindGrid(g,(i,first)=>{if(p.cells[i]===1)return;
+  if(CI.tool==='fill'){if(!first)return;const from=CI.cells[i];if(from===CI.col)return;flood(w,h,i,k=>p.cells[k]!==1&&CI.cells[k]===from).forEach(k=>{CI.cells[k]=CI.col;paintCell(g,k,PAL[CI.col])});sfx.pop();return}
+  CI.cells[i]=CI.col;paintCell(g,i,PAL[CI.col])})}
+
+/* ---- Colour by number ---- */
+let CB=null;
+function showCBNPicker(only){S=null;RD=null;setBar('Colour by number','Drawing room',true);const lvl=DB.cbnLvl||1;
+ const pics=only?[findPic(only)]:[...BUILTIN,...DB.art.filter(a=>a.by!=='Nel'&&a.cells.some(c=>c>1))];
+ stage().innerHTML=`<p class="tip">Pick how tricky, then pick a picture.</p><div class="toggles">${['Numbers','Adding','Taking away'].map((t,i)=>`<button class="chip" data-act="cbnlvl" data-l="${i+1}" data-only="${only||''}" aria-pressed="${lvl===i+1}">${t}</button>`).join('')}</div>
+ <div class="gal">${pics.map(p=>`<button class="gcard pickable" data-act="cbnstart" data-id="${p.id}">${thumb(p)}<b>${p.name}</b></button>`).join('')}</div>`;say('Colour by number. Pick a picture!')}
+function startCBN(id){const src=findPic(id),lvl=DB.cbnLvl||1;S=null;RD=null;
+ const used=[...new Set(src.cells.filter(c=>c>1))];
+ const nums=lvl===1||used.length>9?used.map((_,i)=>i+1):shuffle([2,3,4,5,6,7,8,9,10]).slice(0,used.length);
+ const num={};used.forEach((c,i)=>num[c]=nums[i]);
+ const labels=src.cells.map(c=>{if(c<=1)return'';const n=num[c];if(lvl===1)return String(n);if(lvl===2){const a=R(1,n-1);return`${a}+${n-a}`}const b=R(1,5);return`${n+b}−${b}`});
+ CB={src,lvl,num,used,labels,done:src.cells.map(c=>c<=1),col:null};
+ setBar('Colour by number',src.name,true);renderCB();
+ say(lvl===1?'Pick a colour from the key. Tap the squares with that number.':'Work out the sum, find the answer on the key, then tap!')}
+function renderCB(){const p=CB.src,keyLab={};CB.used.forEach(c=>keyLab[c]=CB.num[c]);
+ stage().innerHTML=`<div class="studio"><div class="sgrid">${gridHTML(p.w,p.h,i=>{const c=p.cells[i];const bg=CB.done[i]?PAL[c]:'#fff';return`<div class="px${CB.done[i]?'':' lab'}" data-i="${i}" style="background:${bg}">${CB.done[i]?'':CB.labels[i]}</div>`},CB.lvl>1?'font-size:clamp(8px,1.2vw,12px)':'')}</div>
+ <div class="sside"><b class="keyh">Key</b>${swatches('cbcol',CB.col,[...CB.used].sort((a,b)=>CB.num[a]-CB.num[b]),keyLab)}<div class="fb" id="fb"></div><button class="chip small" data-act="cbnpick">Pick another picture</button></div></div>`;
+ const g=stage().querySelector('.pxgrid');
+ bindGrid(g,(i,first)=>{if(CB.done[i])return;const t=p.cells[i];
+  if(!CB.col){if(first)note('Pick a colour from the key first!');return}
+  if(CB.col!==t){if(first){if(!DB.calm)sfx.no();const el=g.children[i];anim(el,[{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'none'}],{duration:250});
+   note(CB.lvl===1?`That square is number ${CB.num[t]}. Find ${CB.num[t]} on the key.`:`Work out ${CB.labels[i]} first, then find the answer on the key.`)}return}
+  const cells=first?flood(p.w,p.h,i,k=>!CB.done[k]&&p.cells[k]===t):[i];
+  cells.forEach(k=>{CB.done[k]=true;const el=g.children[k];el.style.background=PAL[t];el.textContent='';el.classList.remove('lab')});sfx.pop();$('#fb').innerHTML='';
+  if(CB.done.every(Boolean)){CB.won=true;DB.logs.unshift({d:Date.now(),m:'cbn',l:CB.lvl,done:1,of:1,first:0,routes:['Drawing room']});
+   const side=stage().querySelector('.sside');side.innerHTML=`<div class="yes pop" style="font:400 30px var(--display);color:var(--leaf)">You finished the picture!</div><p class="hint" style="text-align:left">3 treasure blocks for your build!</p><button class="btn gold" data-act="cbnpick">Another picture</button><button class="btn soft" data-act="home">Back to missions</button>`;
+   reward(3,`Brilliant! You finished the ${CB.src.name.toLowerCase()}!`)}})}
+
+/* ---- Mirror rounds ---- */
+function mirrorRound(hw,h,left,cols,palette){const W=hw*2;
+ const target=i=>{const x=i%W,y=(i/W)|0;return x<hw?left[y*hw+x]:left[y*hw+(W-1-x)]};
+ const cellW=Math.max(30,Math.min(60,Math.floor(560/W)));
+ const grid=gridHTML(W,h,i=>{const x=i%W;return`<div class="px${x<hw?' fixl':' edit'}${x===hw-1?' mline':''}" data-i="${i}" style="background:${x<hw?PAL[left[((i/W)|0)*hw+x]]:'#fff'}"></div>`},`width:min(${W*cellW}px,88vw)`);
+ return{say:'Make it the same on the other side, like a mirror!',size:{},zones:{},
+  html:`<div class="board col" style="gap:14px"><div class="mirrorwrap">${grid}</div>${palette?swatches('mcol',cols[0],[...cols,0])+'<div class="toggles"><button class="chip small" data-act="mtool" data-t="brush" aria-pressed="true">Colour squares</button><button class="chip small" data-act="mtool" data-t="fill" aria-pressed="false">Fill a space</button></div>':''}</div>`,
+  init(){const st=RD.st={cells:Array(W*h).fill(0),col:cols[0],mode:'paint',tool:'brush'};const g=document.querySelector('#board .pxgrid');
+   const ok=()=>{for(let i=0;i<W*h;i++)if(i%W>=hw&&st.cells[i]!==target(i))return false;return true};
+   RD.mirrorOK=ok;RD.target=target;RD.hw=hw;RD.W=W;
+   RD.mpaint=(i,first)=>{if(RD.locked||i%W<hw)return;if(st.tool==='fill'){if(!first)return;const from=st.cells[i];if(from===st.col)return;flood(W,h,i,k=>k%W>=hw&&st.cells[k]===from).forEach(k=>{st.cells[k]=st.col;paintCell(g,k,PAL[st.col])});sfx.pop();if(ok())boardDone();return}if(first)st.mode=(!palette&&st.cells[i]===st.col)||st.col===0?'erase':'paint';
+    const v=st.mode==='erase'?0:st.col;if(st.cells[i]===v)return;st.cells[i]=v;paintCell(g,i,PAL[v]);sfx.pop();if(ok())boardDone()};
+   bindGrid(g,(i,first)=>RD.mpaint(i,first))},
+  check(){return RD.mirrorOK()?{ok:true}:{ok:false,msg:'Not quite a mirror yet. Check each row, one square at a time.'}},
+  yes:'Yes! A perfect mirror picture.'}}
+function randomHalf(hw,h,n,cols){const left=Array(hw*h).fill(0),set=new Set();let x=R(0,hw-1),y=R(0,h-1),guard=0;
+ while(set.size<n&&guard++<800){set.add(y*hw+x);const d=pick([[1,0],[-1,0],[0,1],[0,-1]]);x=Math.max(0,Math.min(hw-1,x+d[0]));y=Math.max(0,Math.min(h-1,y+d[1]))}
+ set.forEach(i=>left[i]=pick(cols));return left}
+
+/* ---- Matching lines ---- */
+function bindMatch(){const box=$('#match'),svg=$('#mlines');RD.mt={done:[],sel:null};
+ const dot=c=>{const r=c.querySelector('.dot').getBoundingClientRect(),b=box.getBoundingClientRect();return[r.left+r.width/2-b.left,r.top+r.height/2-b.top]};
+ const draw=(extra='')=>{const b=box.getBoundingClientRect();svg.setAttribute('viewBox',`0 0 ${b.width} ${b.height}`);
+  svg.innerHTML=RD.mt.done.map(([a,c])=>{const p=dot(a),q=dot(c);return`<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" class="ml ok"/>`}).join('')+extra};
+ RD.mt.draw=draw;RD.mt.dot=dot;let drag=null;
+ box.addEventListener('pointerdown',e=>{if(RD.locked)return;const c=e.target.closest('.mcard');if(!c||c.classList.contains('matched'))return;drag={c,x:e.clientX,y:e.clientY,moved:false};try{box.setPointerCapture(e.pointerId)}catch(_){}e.preventDefault()});
+ box.addEventListener('pointermove',e=>{if(!drag)return;if(!drag.moved&&Math.hypot(e.clientX-drag.x,e.clientY-drag.y)<8)return;drag.moved=true;const b=box.getBoundingClientRect(),p=dot(drag.c);
+  draw(`<line x1="${p[0]}" y1="${p[1]}" x2="${e.clientX-b.left}" y2="${e.clientY-b.top}" class="ml live"/>`)});
+ box.addEventListener('pointerup',e=>{if(!drag)return;const d=drag;drag=null;
+  if(d.moved){const el=document.elementFromPoint(e.clientX,e.clientY),t=el&&el.closest('#match .mcard');draw();if(t&&t.dataset.side!==d.c.dataset.side&&!t.classList.contains('matched'))tryMatch(d.c,t);return}
+  const s=RD.mt.sel;if(s===d.c){s.classList.remove('selected');RD.mt.sel=null;return}
+  if(s&&s.dataset.side!==d.c.dataset.side){s.classList.remove('selected');RD.mt.sel=null;tryMatch(s,d.c);return}
+  if(s)s.classList.remove('selected');RD.mt.sel=d.c;d.c.classList.add('selected');sfx.lift();note('Now tap its partner.')});
+ box.addEventListener('pointercancel',()=>{drag=null;draw()});draw()}
+function tryMatch(a,b){const L=a.dataset.side==='L'?a:b,Rc=L===a?b:a;
+ if(L.dataset.key===Rc.dataset.key){L.classList.add('matched');Rc.classList.add('matched');RD.mt.done.push([L,Rc]);RD.mt.draw();sfx.pop();tone(990,.1,.08,'sine',.05);$('#fb').innerHTML='';
+  if(RD.mt.done.length===document.querySelectorAll('#match .mcard[data-side=L]').length){RD.locked=true;correct(RD.yes)}}
+ else{const p=RD.mt.dot(L),q=RD.mt.dot(Rc);RD.mt.draw(`<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" class="ml bad"/>`);setTimeout(()=>RD&&RD.mt&&RD.mt.draw(),650);wrong('Not a match. Try again!')}}
+addEventListener('resize',()=>{if(RD&&RD.mt)RD.mt.draw();if(RD&&RD.tr)RD.tr.render()});
+
+/* ---- Number tracing ---- */
+const DIG={
+ '0':[[[50,12],[28,22],[18,50],[18,90],[28,120],[50,130],[72,120],[82,90],[82,50],[72,22],[52,12]]],
+ '1':[[[33,32],[50,12],[50,12],[50,130]]],
+ '2':[[[20,40],[30,18],[50,11],[70,18],[79,38],[72,62],[20,128],[20,128],[82,128]]],
+ '3':[[[22,26],[44,12],[68,16],[78,36],[66,58],[46,66],[66,72],[80,94],[72,120],[48,130],[22,120]]],
+ '4':[[[62,12],[16,92],[16,92],[86,92]],[[64,52],[64,130]]],
+ '5':[[[76,12],[30,12],[30,12],[26,64],[48,56],[70,64],[80,90],[72,118],[50,130],[22,120]]],
+ '6':[[[72,18],[52,11],[30,26],[19,60],[20,98],[34,124],[54,130],[74,118],[80,94],[70,74],[50,68],[30,78],[21,96]]],
+ '7':[[[18,12],[82,12],[82,12],[40,130]]],
+ '8':[[[72,26],[50,12],[28,24],[30,48],[50,64],[72,82],[76,110],[50,130],[24,110],[28,82],[50,64],[70,48],[72,28]]],
+ '9':[[[76,34],[60,13],[38,14],[24,32],[28,56],[48,66],[68,58],[78,38],[78,38],[76,130]]]};
+function sampleStroke(pts){const dense=[];for(let i=0;i<pts.length-1;i++){const p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;
+  for(let t=0;t<1;t+=.08){const t2=t*t,t3=t2*t,f=(a,b,c,d)=>.5*(2*b+(-a+c)*t+(2*a-5*b+4*c-d)*t2+(-a+3*b-3*c+d)*t3);dense.push([f(p0[0],p1[0],p2[0],p3[0]),f(p0[1],p1[1],p2[1],p3[1])])}}
+ dense.push(pts[pts.length-1]);const out=[dense[0]];for(const q of dense){const l=out[out.length-1];if(Math.hypot(q[0]-l[0],q[1]-l[1])>=5)out.push(q)}
+ const last=dense[dense.length-1],l=out[out.length-1];if(l[0]!==last[0]||l[1]!==last[1])out.push(last);return out}
+function bindTrace(s){const box=$('#trace'),W=100*s.length;const strokes=[];[...s].forEach((ch,j)=>DIG[ch].forEach(st=>strokes.push(sampleStroke(st.map(([x,y])=>[x+j*100,y])))));
+ const tr=RD.tr={si:0,ci:0,strokes,TOL:16,down:false,warned:false};
+ const path=pts=>'M'+pts.map(p=>p.map(v=>v.toFixed(1)).join(' ')).join('L');
+ tr.render=()=>{const cur=strokes[tr.si];let s2=`<svg viewBox="-4 0 ${W+8} 142" id="tsvg">${strokes.map(st=>`<path d="${path(st)}" class="tg"/><path d="${path(st)}" class="tc"/>`).join('')}`;
+  strokes.forEach((st,k)=>{if(k<tr.si)s2+=`<path d="${path(st)}" class="tp"/>`;else if(k===tr.si&&tr.ci>0)s2+=`<path d="${path(st.slice(0,tr.ci))}" class="tp"/>`});
+  if(cur){const p=cur[Math.min(tr.ci,cur.length-1)],q=cur[Math.min(tr.ci+4,cur.length-1)],a=Math.atan2(q[1]-p[1],q[0]-p[0]);
+   s2+=`<circle cx="${p[0]}" cy="${p[1]}" r="10" class="tdot"/>`;if(tr.ci+4<cur.length)s2+=`<path d="M${p[0]+Math.cos(a)*22} ${p[1]+Math.sin(a)*22} l${Math.cos(a+2.5)*9} ${Math.sin(a+2.5)*9} M${p[0]+Math.cos(a)*22} ${p[1]+Math.sin(a)*22} l${Math.cos(a-2.5)*9} ${Math.sin(a-2.5)*9}" class="tarrow"/>`}
+  box.innerHTML=s2+'</svg>'};
+ tr.feed=(p,first)=>{if(RD.locked)return;const cps=strokes[tr.si];if(!cps)return;
+  if(first&&Math.hypot(p[0]-cps[tr.ci][0],p[1]-cps[tr.ci][1])>tr.TOL*1.8){if(!tr.warned){note('Start at the green dot!');say('Start at the green dot!');tr.warned=true}return}
+  let moved=false;for(let k=tr.ci;k<Math.min(tr.ci+6,cps.length);k++)if(Math.hypot(p[0]-cps[k][0],p[1]-cps[k][1])<tr.TOL){tr.ci=k+1;moved=true}
+  if(tr.ci>=cps.length){tr.si++;tr.ci=0;tone(880,.12,0,'sine',.05);if(tr.si>=strokes.length){tr.render();RD.locked=true;return correct(RD.yes)}}
+  if(moved)tr.render()};
+ const toSvg=e=>{const sv=$('#tsvg'),m=sv.getScreenCTM().inverse(),pt=sv.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const r=pt.matrixTransform(m);return[r.x,r.y]};
+ box.addEventListener('pointerdown',e=>{tr.down=true;try{box.setPointerCapture(e.pointerId)}catch(_){}e.preventDefault();tr.feed(toSvg(e),true)});
+ box.addEventListener('pointermove',e=>{if(tr.down)tr.feed(toSvg(e),false)});
+ const up=()=>{tr.down=false};box.addEventListener('pointerup',up);box.addEventListener('pointercancel',up);
+ box.style.width=`min(${s.length*240}px,86vw)`;tr.render()}
+
 /* ================= buttons ================= */
 const H={
  home(){if(S&&S.i>0&&S.i<S.total)logIt(['Stopped early']);showHome()},
- mission(b){showLevels(b.dataset.id)},
+ mission(b){const m=M.find(x=>x.id===b.dataset.id);if(m.screen==='studio')return showStudio();if(m.screen==='cbn')return showCBNPicker();if(m.screen==='gallery')return showGallery();showLevels(m.id)},
+ village(){showVillage()},
+ choose(){showChooser()},
+ pickbuild(b){const bs=bstate();bs.cur=+b.dataset.i;bs.placed=Math.min(bs.placed,BUILDS[bs.cur].cells.length-1);bs.choose=false;save();sfx.yes();say(`Let's build ${BUILDS[bs.cur].name}!`);showHome()},
+ vtap(b){anim(b,[{transform:'none'},{transform:'translateY(-18px)'},{transform:'none'}],{duration:500});say(BUILDS[+b.dataset.i].name);sfx.pop()},
+ studio(){showStudio()},
+ studioedit(b){showStudio(b.dataset.id)},
+ gallery(){showGallery()},
+ cbnpick(){showCBNPicker()},
+ pcol(b){ST.col=+b.dataset.c;if(ST.tool==='rubber')ST.tool='brush';renderStudio()},
+ ptool(b){ST.tool=b.dataset.t;renderStudio()},
+ pundo(){if(ST.undo.length){ST.pic.cells=ST.undo.pop();renderStudio()}},
+ pclear(){ST.undo.push([...ST.pic.cells]);ST.pic.cells=Array(ST.pic.w*ST.pic.h).fill(0);renderStudio()},
+ psave(){const p=ST.pic;if(!p.cells.some(c=>c)){say('Draw something first!');return}
+  if(!p.id){p.id='a'+Date.now();p.name=`Mummy's drawing ${DB.art.filter(a=>a.by!=='Nel').length+1}`;p.by='Mummy'}
+  const copy={...p,cells:[...p.cells]},k=DB.art.findIndex(a=>a.id===p.id);if(k>=0)DB.art[k]=copy;else DB.art.unshift(copy);DB.art=DB.art.slice(0,40);save();sfx.yes();renderStudio(true);say("Saved! Now it's Nel's turn.")},
+ gcolour(b){showColourIn(b.dataset.id)},
+ gcbn(b){showCBNPicker(b.dataset.id)},
+ cbnlvl(b){DB.cbnLvl=+b.dataset.l;save();showCBNPicker(b.dataset.only||undefined)},
+ cbnstart(b){startCBN(b.dataset.id)},
+ cbcol(b){if(!CB||CB.won)return;CB.col=+b.dataset.c;stage().querySelectorAll('.sw').forEach(x=>x.classList.toggle('on',x===b));sfx.lift();say(`${PALN[CB.col]}, number ${CB.num[CB.col]}`)},
+ cicol(b){CI.col=+b.dataset.c;stage().querySelectorAll('.sw').forEach(x=>x.classList.toggle('on',x===b));sfx.lift()},
+ citool(b){CI.tool=b.dataset.t;stage().querySelectorAll('[data-act=citool]').forEach(x=>x.setAttribute('aria-pressed',x===b))},
+ cidone(){if(!CI||CI.done)return;CI.done=true;const src=CI.src;DB.art.unshift({id:'a'+Date.now(),name:src.name.replace(/^Mummy's /,'')+" · Nel's colours",w:src.w,h:src.h,cells:CI.cells.map((c,i)=>src.cells[i]===1?1:c),by:'Nel'});DB.art=DB.art.slice(0,40);
+  DB.logs.unshift({d:Date.now(),m:'studio',l:1,done:1,of:1,first:0,routes:['Drawing room']});save();
+  stage().querySelector('.sside').innerHTML=`<div class="pop" style="font:400 30px var(--display);color:var(--leaf)">Beautiful colouring!</div><p class="hint" style="text-align:left">Saved in the gallery. 2 treasure blocks for your build!</p><button class="btn gold" data-act="gallery">See the gallery</button><button class="btn soft" data-act="home">Back to missions</button>`;
+  reward(2,'Beautiful colouring, Nel!')},
+ gdel(b){b.parentElement.innerHTML=`<span class="hint">Delete this drawing?</span><button class="chip small" data-act="gdelyes" data-id="${b.dataset.id}">Yes, delete</button><button class="chip small" data-act="gallery">Keep it</button>`},
+ gdelyes(b){DB.art=DB.art.filter(a=>String(a.id)!==b.dataset.id);save();showGallery()},
+ mcol(b){if(!RD||!RD.st)return;RD.st.col=+b.dataset.c;stage().querySelectorAll('.sw').forEach(x=>x.classList.toggle('on',x===b));sfx.lift()},
+ mtool(b){if(!RD||!RD.st)return;RD.st.tool=b.dataset.t;stage().querySelectorAll('[data-act=mtool]').forEach(x=>x.setAttribute('aria-pressed',x===b))},
+ gmirror(b){const src=findPic(b.dataset.id);if(!src)return;const hw=src.w/2,h=src.h,left=[];for(let y=0;y<h;y++)for(let x=0;x<hw;x++)left.push(src.cells[y*src.w+x]);
+  if(!left.some(c=>c)){say('Mummy, draw on the left side first!');return}
+  const cols=[...new Set(left.filter(c=>c))];const m={id:'mirror',custom:true,ch:'draw',title:'Mirror challenge',lv:['','',src.name],gen(){return{sig:'g'+src.id,...mirrorRound(hw,h,left,cols,true)}}};
+  startWith(m,3,1);setBar('Mirror challenge',src.name,true)},
  start(b){start(b.dataset.id,+b.dataset.l)},
  speak(){if(RD)say(RD.asking?RD.q.say:RD.say)},
  voice(b){DB.voice=!DB.voice;save();b.setAttribute('aria-pressed',DB.voice);if(DB.voice)say('I will read the missions out loud.');else try{speechSynthesis.cancel()}catch(e){}},
@@ -781,7 +1141,7 @@ const H={
 next(){next()},
  hour(b){if(!RD||RD.locked||!RD.custom)return;const h=+b.dataset.h;RD.custom.h=h;const hh=$('#hhand');if(hh)hh.style.transform=`rotate(${h*30}deg)`;sfx.pop();say(`${h} o'clock`);$('#fb').innerHTML=''},
  stopnow(){if(!S)return;if(S.i===0){showHome();return}S.total=S.i;S.early=true;finish()},
- again(){start(S.m.id,S.l)},
+ again(){if(S.m.custom){const m=S.m;startWith(m,S.l,1)}else start(S.m.id,S.l)},
  up(){start(S.m.id,S.l+1)},
  route(b){const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);const L=DB.logs[0];if(L){const v=b.dataset.v;L.routes=on?[...new Set([...L.routes,v])]:L.routes.filter(x=>x!==v);save()}},
 notes(){showNotes()},
